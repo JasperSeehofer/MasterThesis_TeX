@@ -1,0 +1,83 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%-------------------------------------------- LAYOUT --------------------------------------------%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+% --- LAYOUT PACKAGES ---%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%
+% HEADER AND FOOTER
+\usepackage{scrlayer-scrpage}
+
+%%%%%%%%
+% MARGIN
+\usepackage[margin=2.5cm]{geometry}
+
+%%%%%%%%%%%%%
+% LINESPACING
+\usepackage[singlespacing]{setspace}
+
+%%%%%%%%%%%%%%%%%%%%%
+% ---PAGE LAYOUT ---%
+%%%%%%%%%%%%%%%%%%%%%
+\setkomafont{pagehead}{\upshape\sffamily}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+% --- STYLE CHANGES --- %
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION & CHAPTER NUMBERING
+%\renewcommand{\thesection}{\Roman{section}}
+
+\renewcommand{\thechapter}{\Roman{chapter}}
+
+
+
+%%%%%%%%%%%%%%%%%%%%
+% --- FIGURE & TABLE
+\captionsetup{font=sf,labelfont=sc,labelsep=endash}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+% --- THEOREM SETS --- %
+%%%%%%%%%%%%%%%%%%%%%%%%
+% [Information:] Here the style of theorem sets like a definition and its numbering is set.
+\theoremstyle{break}
+\theoremheaderfont{\upshape\sffamily\bfseries}
+\theorembodyfont{\itshape}
+
+%%%%%%%%%%%%%%%%%
+% --- DEFINITION:
+\newtheorem{definition}{Definition}[section]
+
+%%%%%%%%%%%%%%
+% --- THEOREM:
+\newtheorem{theorem}{Theorem}[section]
+
+\theorembodyfont{\normalfont}
+%%%%%%%%%%%%%%%
+% --- NOTATION:
+
+% --- COROLLARY:
+
+% --- LEMMA:xf
+
+
+% Specifications for unnumbered theorems:
+\theoremstyle{nonumberplain}
+\theoremseparator{.}
+
+%%%%%%%%%%%%%
+% --- REMARKS
+\newtheorem{remark}{Remark}
+
+
+\theoremheaderfont{\scshape}
+\theoremindent0.5cm
+\theoremsymbol{\ensuremath{_\Box}}
+
+%%%%%%%%%%%
+% --- PROOF
+\newtheorem{proof}{Proof}

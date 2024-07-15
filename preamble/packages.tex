@@ -1,0 +1,149 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%------------------------------------------ PACKAGES --------------------------------------------%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%---LANGUAGE PACKAGES---%
+%%%%%%%%%%%%%%%%%%%%%%%%%
+% Language: ENGLISH (<-change to ngerman for new german.)
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+%including pdfs
+\usepackage{pdfpages}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ================== STYLING =================== %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\newcommand{\nomunit}[1]{%
+%        \renewcommand{\nomentryend}{\hspace*{\fill}#1}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+% --- MAKING FIGURES --- %
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{float} % for positioning of figures (e.g. H )
+%\usepackage[dvipsnames]{xcolor} % for more colors
+\usepackage{tikz}
+\usetikzlibrary{patterns, decorations.pathmorphing}
+\usepackage{tikz-3dplot} % used for 3D Plots
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% -------- PHYSICAL NOTATION -------- %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% --- MATHEMATICAL REPRESENTATION --- %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{slashed}
+\usepackage[amsmath,thmmarks]{ntheorem}
+\usepackage{framed}     % to frame theorems etc.
+\usepackage{mdframed}   % same
+\usepackage{dsfont}
+\usepackage{xfrac} % use \sfrac for slanted fraction
+\usepackage{cancel} % for strike through of canceling terms
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+% --- NOMENCLAUTURE  --- %
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[intoc]{nomencl}
+\usepackage{siunitx}
+\usepackage{ifthen}
+% No extra line space between items
+%\setlength{\nomitemsep}{-\parsep}
+
+% rename nomenclature
+\renewcommand{\nomname}{List of Symbols}
+
+% Divide nomenclature into subgroups
+\newlength\preGroupSkip
+\setlength{\preGroupSkip}{3.5ex}
+\newlength\postGroupSkip
+\setlength{\postGroupSkip}{2.3ex}
+\newcommand\groupHeading[1]{%
+        \par% <- added
+        \vspace{\preGroupSkip}%
+        \item[\usekomafont{sectioning}\usekomafont{section}#1]%
+        \hspace*{\leftmargin}\vspace{\postGroupSkip}%
+}
+\renewcommand{\nomgroup}[1]{%
+        \ifthenelse{\equal{#1}{P}}{%
+                \groupHeading{Physical notation}%
+        }{}%
+        \ifthenelse{\equal{#1}{C}}{%
+                \groupHeading{Coding notation}%
+        }{}%
+        \ifthenelse{\equal{#1}{M}}{%
+                \groupHeading{Mathematical notation}%
+        }{}%
+}
+\newcommand{\nomunit}[1]{%
+        \renewcommand{\nomentryend}{\hspace*{\fill}[#1]\nolinebreak\hspace*{2cm}\mbox{}}%
+}
+
+\makenomenclature
+
+
+%%%%%%%%%%%%%%%%%
+% --- ARRAYS ---%
+%%%%%%%%%%%%%%%%%
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{ctable}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% --- INCLUDING GRAPHICS --- %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{graphicx}
+% [Information:] Set graphics path ./img/
+\graphicspath{{./img/}}
+
+% [Information:] To adjust the captions in style.tex
+\usepackage{caption}
+\usepackage{subcaption}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% --- PHYSICAL REPRESENTATION --- %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{units}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%
+% --- LOREM IPSUM --- %
+%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{lipsum}
+
+
+\addtokomafont{disposition}{\rmfamily}
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+% --- REFERENCES --- %
+%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{nameref}
+\newcommand*{\fullref}[1]{\hyperref[{#1}]{\autoref*{#1}}} % FOR REFERENCE BY NAME (e.g. Figure 3)
+
+%%%%%%%%%%%%%%%%%%%%%%
+% ---BIBLIOGRAPHY--- %
+%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[backend=biber,
+        style=alphabetic,
+        sorting=ynt
+]{biblatex}
+
+\usepackage{hyperref}
+\hypersetup{
+        hidelinks = true,
+        %colorlinks = false,
+        %linkcolor = {blue},
+}

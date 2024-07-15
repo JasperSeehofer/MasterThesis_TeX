@@ -1,0 +1,37 @@
+% Chapter on Inference
+\chapter{Inference of the hubble constant}
+
+\section{Dark Sirens}
+
+Let's now start putting pieces together and construct the setup we will use to infer the hubble constant $h$ from EMRI detections with LISA that do not have an electromagnetic counterpart. This means while the EMRI detection yields a measurement of the luminosity distance $d_L$, we do not have an independent redshift measurement for which one usually uses the electromagnetic counterpart of the measurement. Such measurements lacking of the electromagnetic counterpart are therefore referred to as \emph{Dark Sirens}. This is where the idea of using a galaxy catalog as the counterpart comes into play.
+
+\section{EMRI detections}
+
+When talking about EMRI detections, form now on we mean by that the following,
+\begin{definition}[EMRI Detection]
+    For our purposes an \emph{EMRI detection} $D$ is given by 
+    \begin{equation}
+        \label{eq:emri-detection}
+        D \coloneqq \left \{ d_L, \vartheta, \varphi, M, \Sigma(d_L, \vartheta, \varphi, M)\right \},
+    \end{equation}
+    where $d_L, \vartheta, \varphi, M, \Sigma$ are the luminosity distance, azimuthal angle, longitudinal angle and the BH mass, covariance matrix, respectively. 
+\end{definition}
+
+\subsection{Assumptions on EMRI detections}
+The following will be assumed to hold for all (EMRI) detections:
+\begin{itemize}
+    \item Detections are statistically uncorrelated
+    \item A detection is fully described by a point in parameter space
+    \item The source of a detection is always a galaxy
+    \item The BH is the central BH of the given galaxy
+\end{itemize}
+
+\section{Galaxy Catalog cross-matching}
+The concept of cross-matching the EMRI detections to galaxies in galaxy catalog is well introduced in [REFS]. The idea is that given a detection $D$ we can look up the \emph{completeness} of the galaxy catalog in the parameter region of $D$. Completeness means the fraction of galaxies that are in the catalog compared to the actual expected number or density of galaxies in given parameter region. We can then assert a likelihood to each galaxy in the catalog for it to be the \emph{host galaxy} of the EMRI detection $D$. In other words, since we do not exactly know the source of the EMRI event we simply consider any galaxy to be the possible host galaxy and evaluate how likely it is that the EMRI signal was \emph{hosted} by this galaxy. If we then sum over all galaxies we can expect
+
+
+
+
+\section{Bayesian Inference}
+
+

@@ -1,0 +1,100 @@
+\documentclass[
+paper=a4,
+fontsize = 12pt, % Fontsize of the document
+headsepline,     % Line under the header 
+titlepage,       % Insert a full titlepage
+numbers=noenddot,
+headings=optiontohead, %Option for chapter,section... for page header.
+]{scrbook}
+
+% Include preamble
+\input{./preamble/packages}
+\input{./preamble/styles}
+\input{./preamble/newcommands}
+
+\RedeclareSectionCommands[tocdynnumwidth=true]
+  {chapter,section,subsection,subsubsection}
+
+% Add Bibliography
+\addbibresource{literature/literature.bib}
+
+% Add Nomenclature
+\makenomenclature
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%--------------------------------------- BEGIN DOCUMENT -----------------------------------------%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\begin{document}
+
+\frontmatter
+\setkomafont{pagenumber}{\upshape \sffamily}
+\cofoot[\pagemark]{}
+\rofoot[]{}
+%%%%%%%%%%%%%%%%%%% 
+% INSERT TITLEPAGE:
+\input{./tex/titlepage}
+
+\input{./tex/abstract}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% INSERT TABLE OF CONTENTS:
+\tableofcontents
+\listoffigures
+\listoftables
+%\input{./tex/list_of_symbols}
+\nomenclature[c]{$c$}{Speed of light in a vacuum}
+\nomenclature[c]{$h$}{Planck constant}
+\nomenclature[c]{$G$}{Gravitational constant}
+\nomenclature[m]{$\mathbb{R}$}{Real numbers}
+\nomenclature[m]{$\mathbb{C}$}{Complex numbers}
+\nomenclature[m]{$\mathbb{H}$}{Quaternions}
+\nomenclature[p]{$V$}{Constant volume}
+\nomenclature[p]{$\rho$}{Friction index}
+\printnomenclature
+
+\mainmatter
+\setkomafont{pagenumber}{\sffamily\upshape}
+
+\rofoot[]{\pagemark}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%----------------------------------------- BEGIN BODY -------------------------------------------%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+% --- INTRODUCTION --- %
+%%%%%%%%%%%%%%%%%%%%%%%%
+\input{./tex/Introduction/introduction.tex}
+
+\part*{Theory}\label{part:theory}
+
+%%%%%%%%%%%%%%%%%%%%%
+% ------ CH1 ------ %
+%%%%%%%%%%%%%%%%%%%%%
+%\input{./tex/theory/parameter_analysis.tex}
+
+\input{./tex/theory/hubble_constant_inference.tex}
+
+
+
+\part*{Application}\label{part:application}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+% ---  Conclusion   --- %
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{./tex/Conclusion-Outlook/conclusion.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%%------------------------------------------ APPENDIX --------------------------------------------%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\appendix
+\part*{Appendix}\label{part:appendix}
+\input{./tex/appendix}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%%----------------------------------------- LITERATURE -------------------------------------------%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\printbibliography
+\end{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%%---------------------------------------- END DOCUMENT ------------------------------------------%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
