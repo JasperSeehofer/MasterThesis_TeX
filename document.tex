@@ -40,15 +40,8 @@ headings=optiontohead, %Option for chapter,section... for page header.
 \tableofcontents
 \listoffigures
 \listoftables
-%\input{./tex/list_of_symbols}
-\nomenclature[c]{$c$}{Speed of light in a vacuum}
-\nomenclature[c]{$h$}{Planck constant}
-\nomenclature[c]{$G$}{Gravitational constant}
-\nomenclature[m]{$\mathbb{R}$}{Real numbers}
-\nomenclature[m]{$\mathbb{C}$}{Complex numbers}
-\nomenclature[m]{$\mathbb{H}$}{Quaternions}
-\nomenclature[p]{$V$}{Constant volume}
-\nomenclature[p]{$\rho$}{Friction index}
+\input{./tex/list_of_symbols}
+
 \printnomenclature
 
 \mainmatter
@@ -70,7 +63,17 @@ headings=optiontohead, %Option for chapter,section... for page header.
 %%%%%%%%%%%%%%%%%%%%%
 % ------ CH1 ------ %
 %%%%%%%%%%%%%%%%%%%%%
-%\input{./tex/theory/parameter_analysis.tex}
+\input{tex/theory/gravitational_waves.tex}
+
+\input{tex/theory/emri_waveforms.tex}
+
+\input{tex/theory/cosmology.tex}
+
+\input{tex/theory/lisa.tex}
+
+\input{tex/theory/parameter_estimation.tex}
+
+\input{tex/theory/parameter_analysis.tex}
 
 \input{./tex/theory/hubble_constant_inference.tex}
 

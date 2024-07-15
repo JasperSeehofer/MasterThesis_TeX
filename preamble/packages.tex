@@ -51,6 +51,8 @@
 \usepackage{dsfont}
 \usepackage{xfrac} % use \sfrac for slanted fraction
 \usepackage{cancel} % for strike through of canceling terms
+\usepackage{bm} % for bold math symbols
+\usepackage{mathrsfs} % for script fonts
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 % --- NOMENCLAUTURE  --- %
@@ -84,6 +86,9 @@
         }{}%
         \ifthenelse{\equal{#1}{M}}{%
                 \groupHeading{Mathematical notation}%
+        }{}%
+        \ifthenelse{\equal{#1}{A}}{%
+                \groupHeading{Acronyms}%
         }{}%
 }
 \newcommand{\nomunit}[1]{%

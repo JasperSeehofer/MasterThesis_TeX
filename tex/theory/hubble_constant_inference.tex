@@ -9,12 +9,12 @@ Let's now start putting pieces together and construct the setup we will use to i
 
 When talking about EMRI detections, form now on we mean by that the following,
 \begin{definition}[EMRI Detection]
-    For our purposes an \emph{EMRI detection} $D$ is given by 
+    For our purposes an \emph{EMRI detection} $D$ is given by
     \begin{equation}
         \label{eq:emri-detection}
-        D \coloneqq \left \{ d_L, \vartheta, \varphi, M, \Sigma(d_L, \vartheta, \varphi, M)\right \},
+        \bm{D} \coloneqq \left \{ d_L, \vartheta, \varphi, M, \bm{\Sigma} (d_L, \vartheta, \varphi, M)\right \},
     \end{equation}
-    where $d_L, \vartheta, \varphi, M, \Sigma$ are the luminosity distance, azimuthal angle, longitudinal angle and the BH mass, covariance matrix, respectively. 
+    where $d_L, \vartheta, \varphi, M, \bm{\Sigma}$ are the luminosity distance, azimuthal angle, longitudinal angle and the BH mass, covariance matrix, respectively.
 \end{definition}
 
 \subsection{Assumptions on EMRI detections}
@@ -27,11 +27,13 @@ The following will be assumed to hold for all (EMRI) detections:
 \end{itemize}
 
 \section{Galaxy Catalog cross-matching}
-The concept of cross-matching the EMRI detections to galaxies in galaxy catalog is well introduced in [REFS]. The idea is that given a detection $D$ we can look up the \emph{completeness} of the galaxy catalog in the parameter region of $D$. Completeness means the fraction of galaxies that are in the catalog compared to the actual expected number or density of galaxies in given parameter region. We can then assert a likelihood to each galaxy in the catalog for it to be the \emph{host galaxy} of the EMRI detection $D$. In other words, since we do not exactly know the source of the EMRI event we simply consider any galaxy to be the possible host galaxy and evaluate how likely it is that the EMRI signal was \emph{hosted} by this galaxy. If we then sum over all galaxies we can expect
-
-
+The concept of cross-matching the EMRI detections to galaxies in galaxy catalog is well introduced in [REFS]. The idea is that given a detection $D$ we can look up the \emph{completeness} of the galaxy catalog in the parameter region of $D$. Completeness means the fraction of galaxies that are in the catalog compared to the actual expected number or density of galaxies in given parameter region. We can then assert a likelihood to each galaxy in the catalog for it to be the \emph{host galaxy} of the EMRI detection $D$. In other words, since we do not exactly know the source of the EMRI event we simply consider any galaxy to be the possible host galaxy and evaluate how likely it is that the EMRI event was \emph{hosted} by this galaxy.
 
 
 \section{Bayesian Inference}
-
+The inference of the hubble constant $\hubble$ from the EMRI detections is a Bayesian inference problem. We want to infer the posterior distribution of the hubble constant $\hubble$ given the EMRI detections $\bm{D}$ and the galaxy catalog $\galcat$. The posterior distribution is given by Bayes' theorem
+\begin{equation}
+    \label{eq:bayes-theorem}
+    p(\hubble |D, \galcat) = \frac{p(D, \galcat|\hubble) p(h)}{p(D, \galcat)},
+\end{equation}
 
