@@ -16,6 +16,47 @@ When talking about EMRI detections, form now on we mean by that the following,
     \end{equation}
     where $d_L, \vartheta, \varphi, M, \bm{\Sigma}$ are the luminosity distance, azimuthal angle, longitudinal angle and the BH mass, covariance matrix, respectively.
 \end{definition}
+\section{Galaxy Catalog}
+The galaxy catalog we use in the present work is the \emph{GLADE+} catalog \cite{D_lya_2022}. The catalog uses data from six independent astronomical catalogs. For the inference of the hubble constant we will use the galaxy catalog to cross-match EMRI detections to galaxies in the catalog as possible hosts. The information we extract from the GLADE+ catalog is the following:
+\begin{itemize}
+\item Redshift $z$
+\item Redshift error $\sigma_z$
+\item Galaxy stellar mass $\Mstellar$
+\item Galaxy stellar mass error $\sigma_M$
+\item Azimuthal angle $\vartheta$
+\item Longitudinal angle $\varphi$
+
+
+\subsection{Stellar mass - black hole mass relation}
+
+\begin{definition}[Galaxy catalog]
+    The galaxy catalog $\galcat$ is a collection of galaxies $\mathcal{G} = \left \{ \galaxy_i \right \}_{i\in\naturalnumbers}$ where each galaxy $\galaxy_i$ is given by
+    \begin{equation}
+        \label{eq:galaxy}
+        \galaxy_i \coloneqq \left \{ z_i, \sigma_{z_i}, M_{i}, \sigma_{M_{i}}, \vartheta_i, \varphi_i \right \},
+    \end{equation}
+    where $z_i, \sigma_{z_i}, M_{i}, \sigma_{M_{i}}, \vartheta_i, \varphi_i$ are the redshift, redshift error, galaxy mass, galaxy mass error, azimuthal angle and longitudinal angle, respectively.
+\end{definition}
+
+\section{Galaxy Catalog cross-matching}
+The concept of cross-matching the EMRI detections to galaxies in galaxy catalog is well introduced in [REFS]. The idea is that given a detection $\detection$ we can look up the \emph{completeness} of the galaxy catalog in the parameter region of $\detection$. Completeness means the fraction of galaxies that are in the catalog compared to the actual expected number or density of galaxies in given parameter region. We can then assert a likelihood to each galaxy in the catalog for it to be the \emph{host galaxy} of the EMRI detection $\detection$. In other words, since we do not exactly know the source of the EMRI event we simply consider any galaxy to be the possible host galaxy and evaluate how likely it is that the EMRI event was \emph{hosted} by this galaxy.
+
+
+\section{Bayesian Inference}
+The inference of the reduced hubble constant $\rhubble$ from the EMRI detections is a Bayesian inference problem. A detailed derivation of the inference is provided in \cite{Laghi_2021}. We want to infer the posterior distribution of the reduced hubble constant $\rhubble$ given the EMRI detections $\detections$, the galaxy catalog $\galcat$, a cosmological model $\cosmologicalmodel$ and background information on the inference of the hubble constant $\backgroundinformation$. The posterior probability distribution is given by Bayes' theorem
+\begin{equation}
+    \label{eq:bayes-theorem}
+    p(\rhubble |\detections , \galcat , \cosmologicalmodel) = p(\rhubble | \galcat , \cosmologicalmodel, \backgroundinformation) \frac{p(\detections |\rhubble , \galcat , \cosmologicalmodel, \backgroundinformation) }{p(\detections | \galcat , \cosmologicalmodel , \backgroundinformation)},
+\end{equation}
+where the terms in the right hand side of \eqref{eq:bayes-theorem} in more detail are as follows:
+\begin{description}
+    \item[$p(\rhubble | \galcat , \cosmologicalmodel, \backgroundinformation)$] is the \emph{prior} distribution of the reduced hubble constant given the galaxy catalog, cosmological model and background information.
+    \item[$p(\detections |\rhubble , \galcat , \cosmologicalmodel, \backgroundinformation)$] is the \emph{likelihood} of the EMRI detections given the reduced hubble constant, galaxy catalog, cosmological model and background information.
+    \item[$p(\detections | \galcat , \cosmologicalmodel , \backgroundinformation)$] is the \emph{evidence} of the EMRI detections, galaxy catalog, cosmological model and background information.
+\end{description}
+\begin{remark}
+    The evidence $p(\detections , \galcat , \cosmologicalmodel , \backgroundinformation)$ is only relevant if we want to compare different models such as cosmological models. In our case we will restrict ourselves to the flat ($k=0$) $\lamcdm$ model and therefore the evidence is not needed. Still we can use the evidence to normalize the posterior distribution.
+\end{remark}
 
 \subsection{Assumptions on EMRI detections}
 The following will be assumed to hold for all (EMRI) detections:
@@ -25,15 +66,3 @@ The following will be assumed to hold for all (EMRI) detections:
     \item The source of a detection is always a galaxy
     \item The BH is the central BH of the given galaxy
 \end{itemize}
-
-\section{Galaxy Catalog cross-matching}
-The concept of cross-matching the EMRI detections to galaxies in galaxy catalog is well introduced in [REFS]. The idea is that given a detection $D$ we can look up the \emph{completeness} of the galaxy catalog in the parameter region of $D$. Completeness means the fraction of galaxies that are in the catalog compared to the actual expected number or density of galaxies in given parameter region. We can then assert a likelihood to each galaxy in the catalog for it to be the \emph{host galaxy} of the EMRI detection $D$. In other words, since we do not exactly know the source of the EMRI event we simply consider any galaxy to be the possible host galaxy and evaluate how likely it is that the EMRI event was \emph{hosted} by this galaxy.
-
-
-\section{Bayesian Inference}
-The inference of the hubble constant $\hubble$ from the EMRI detections is a Bayesian inference problem. We want to infer the posterior distribution of the hubble constant $\hubble$ given the EMRI detections $\bm{D}$ and the galaxy catalog $\galcat$. The posterior distribution is given by Bayes' theorem
-\begin{equation}
-    \label{eq:bayes-theorem}
-    p(\hubble |D, \galcat) = \frac{p(D, \galcat|\hubble) p(\hubble)}{p(D, \galcat)},
-\end{equation}
-
