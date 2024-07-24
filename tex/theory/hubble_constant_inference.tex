@@ -34,6 +34,6 @@ The concept of cross-matching the EMRI detections to galaxies in galaxy catalog 
 The inference of the hubble constant $\hubble$ from the EMRI detections is a Bayesian inference problem. We want to infer the posterior distribution of the hubble constant $\hubble$ given the EMRI detections $\bm{D}$ and the galaxy catalog $\galcat$. The posterior distribution is given by Bayes' theorem
 \begin{equation}
     \label{eq:bayes-theorem}
-    p(\hubble |D, \galcat) = \frac{p(D, \galcat|\hubble) p(h)}{p(D, \galcat)},
+    p(\hubble |D, \galcat) = \frac{p(D, \galcat|\hubble) p(\hubble)}{p(D, \galcat)},
 \end{equation}
 

@@ -58,14 +58,18 @@ headings=optiontohead, %Option for chapter,section... for page header.
 %%%%%%%%%%%%%%%%%%%%%%%%
 \input{./tex/Introduction/introduction.tex}
 
-\part*{Theory}\label{part:theory}
+%%%%%%%%%%%%%%%%%%%%%%%%
+% ---    THEORY    --- %
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\part{Theory}\label{part:theory}
 
 %%%%%%%%%%%%%%%%%%%%%
 % ------ CH1 ------ %
 %%%%%%%%%%%%%%%%%%%%%
 \input{tex/theory/gravitational_waves.tex}
 
-\input{tex/theory/emri_waveforms.tex}
+\input{tex/theory/emris.tex}
 
 \input{tex/theory/cosmology.tex}
 
@@ -73,13 +77,24 @@ headings=optiontohead, %Option for chapter,section... for page header.
 
 \input{tex/theory/parameter_estimation.tex}
 
-\input{tex/theory/parameter_analysis.tex}
-
 \input{./tex/theory/hubble_constant_inference.tex}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+% --- IMPLEMENTATION --- %
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\part{Implementation}\label{part:implementation}
 
 
-\part*{Application}\label{part:application}
+%%%%%%%%%%%%%%%%%%%%%%%%
+% ---  EVALUATION  --- %
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\part{Evaluation}\label{part:evaluation}
+
+\input{./tex/evaluation/simulation.tex}
+
+\input{./tex/evaluation/inference_of_hubble.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%
 % ---  Conclusion   --- %
