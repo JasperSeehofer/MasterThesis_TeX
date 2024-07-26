@@ -8,18 +8,14 @@ headings=optiontohead, %Option for chapter,section... for page header.
 ]{scrbook}
 
 % Include preamble
-\input{./preamble/packages}
-\input{./preamble/styles}
-\input{./preamble/newcommands}
+\input{./preamble/packages.tex}
+\input{./preamble/styles.tex}
+\input{./preamble/newcommands.tex}
 
-\RedeclareSectionCommands[tocdynnumwidth=true]
-  {chapter,section,subsection,subsubsection}
+\RedeclareSectionCommands[tocdynnumwidth=true]{chapter,section,subsection,subsubsection}
 
 % Add Bibliography
 \addbibresource{literature/literature.bib}
-
-% Add Nomenclature
-\makenomenclature
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%--------------------------------------- BEGIN DOCUMENT -----------------------------------------%%
@@ -56,7 +52,7 @@ headings=optiontohead, %Option for chapter,section... for page header.
 %%%%%%%%%%%%%%%%%%%%%%%%
 % --- INTRODUCTION --- %
 %%%%%%%%%%%%%%%%%%%%%%%%
-\input{./tex/Introduction/introduction.tex}
+%\input{./tex/Introduction/introduction.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%
 % ---    THEORY    --- %
@@ -84,6 +80,8 @@ headings=optiontohead, %Option for chapter,section... for page header.
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \part{Implementation}\label{part:implementation}
+
+\input{./tex/implementation/implementation.tex}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%

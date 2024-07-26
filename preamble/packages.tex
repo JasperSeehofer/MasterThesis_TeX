@@ -58,10 +58,10 @@
 % --- NOMENCLAUTURE  --- %
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage[intoc]{nomencl}
+\makenomenclature
 \usepackage{siunitx}
 \usepackage{ifthen}
 % No extra line space between items
-%\setlength{\nomitemsep}{-\parsep}
 
 % rename nomenclature
 \renewcommand{\nomname}{List of Symbols}
@@ -72,7 +72,6 @@
 \newlength\postGroupSkip
 \setlength{\postGroupSkip}{2.3ex}
 \newcommand\groupHeading[1]{%
-        \par% <- added
         \vspace{\preGroupSkip}%
         \item[\usekomafont{sectioning}\usekomafont{section}#1]%
         \hspace*{\leftmargin}\vspace{\postGroupSkip}%
@@ -80,22 +79,22 @@
 \renewcommand{\nomgroup}[1]{%
         \ifthenelse{\equal{#1}{P}}{%
                 \groupHeading{Physical notation}%
-        }{}%
-        \ifthenelse{\equal{#1}{C}}{%
-                \groupHeading{Coding notation}%
-        }{}%
-        \ifthenelse{\equal{#1}{M}}{%
-                \groupHeading{Mathematical notation}%
-        }{}%
-        \ifthenelse{\equal{#1}{A}}{%
-                \groupHeading{Acronyms}%
-        }{}%
+        }{%
+                \ifthenelse{\equal{#1}{C}}{%
+                        \groupHeading{Coding notation}%
+                }{%
+                        \ifthenelse{\equal{#1}{M}}{%
+                                \groupHeading{Mathematical notation}%
+                        }{%
+                                \ifthenelse{\equal{#1}{A}}{%
+                                        \groupHeading{Acronyms}%
+                                }{}}}}%
 }
 \newcommand{\nomunit}[1]{%
         \renewcommand{\nomentryend}{\hspace*{\fill}[#1]\nolinebreak\hspace*{2cm}\mbox{}}%
 }
 
-\makenomenclature
+
 
 
 %%%%%%%%%%%%%%%%%
@@ -103,7 +102,6 @@
 %%%%%%%%%%%%%%%%%
 \usepackage{array}
 \usepackage{booktabs}
-\usepackage{ctable}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % --- INCLUDING GRAPHICS --- %

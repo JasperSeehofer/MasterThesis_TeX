@@ -3,13 +3,13 @@
 
 \section{Dark Sirens}
 
-Let's now start putting pieces together and construct the setup we will use to infer the hubble constant $\hubble$ from EMRI detections with LISA that do not have an electromagnetic counterpart. This means while the EMRI detection yields a measurement of the luminosity distance $\dl$, we do not have an independent redshift measurement for which one usually uses the electromagnetic counterpart of the measurement. Such measurements lacking of the electromagnetic counterpart are therefore referred to as \em{Dark Sirens}. This is where the idea of using a galaxy catalog as the counterpart comes into play.
+Let's now start putting pieces together and construct the setup we will use to infer the hubble constant $\hubble$ from EMRI detections with LISA that do not have an electromagnetic counterpart. This means while the EMRI detection yields a measurement of the luminosity distance $\dl$, we do not have an independent redshift measurement for which one usually uses the electromagnetic counterpart of the measurement. Such measurements lacking of the electromagnetic counterpart are therefore referred to as \emph{Dark Sirens}. This is where the idea of using a galaxy catalog as the counterpart comes into play.
 
 \section{EMRI detections}
 
 When talking about EMRI detections, form now on we mean by that the following,
 \begin{definition}
-    For our purposes an \emph{EMRI detection} $D$ is given by
+    For our purposes an \emph{EMRI detection} $\detection$ is given by
     \begin{equation}
         \label{eq:emri-detection}
         \bm{D} \coloneqq \left \{ \dl, \vartheta, \varphi, M, \bm{\Sigma} (\dl, \vartheta, \varphi, M)\right \},
@@ -54,7 +54,7 @@ The concept of cross-matching the EMRI detections to galaxies in galaxy catalog 
 
 
 \section{Bayesian Inference}
-The inference of the reduced hubble constant $\rhubble$ from the EMRI detections is a Bayesian inference problem. A detailed derivation of the inference is provided in \cite{Laghi_2021}. We want to infer the posterior distribution of the reduced hubble constant $\rhubble$ given the EMRI detections $\detections$, the galaxy catalog $\galcat$, a cosmological model $\cosmologicalmodel$ and background information on the inference of the hubble constant $\backgroundinformation$. The posterior probability distribution is given by Bayes' theorem
+The inference of the reduced hubble constant $\rhubble$ from the EMRI detections is a Bayesian inference problem. A detailed derivation of the inference is provided in \cite{10.1093/mnras/stab2741}. We want to infer the posterior distribution of the reduced hubble constant $\rhubble$ given the EMRI detections $\detections$, the galaxy catalog $\galcat$, a cosmological model $\cosmologicalmodel$ and background information on the inference of the hubble constant $\backgroundinformation$. The posterior probability distribution is given by Bayes' theorem
 \begin{equation}
     \label{eq:bayes-theorem}
     p(\rhubble |\detections , \galcat , \cosmologicalmodel) = p(\rhubble | \galcat , \cosmologicalmodel, \backgroundinformation) \frac{p(\detections |\rhubble , \galcat , \cosmologicalmodel, \backgroundinformation) }{p(\detections | \galcat , \cosmologicalmodel , \backgroundinformation)},

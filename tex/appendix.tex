@@ -12,26 +12,3 @@ All considerations are done in natural units. This means
   \hbar = c = 1.
 \end{equation}
 
-\section{Abstract index notation}
-
-\subsection{Lorentz index}
-The quantum field theory (QFT) is formulated on a Lorentzian manifold, namely 4-dimensional Minkowski spacetime $(\mathbb{R}^{1,3}, \eta)$, where the metric tensor $\eta$ is given by
-\begin{equation}
-  \label{eq:minkowski-metric}
-  \left( \eta \right)_{\mu \nu} =
-  \begin{pmatrix}
-    1 & 0 & 0 & 0 \\
-    0 & -1 & 0 & 0 \\
-    0 & 0 & -1 & 0 \\
-    0 & 0 & 0& -1
-  \end{pmatrix}, 
-\end{equation}
-with $\mu,\nu = 0,1,2,3$. Further a 4-vector is just given by $x$ and the 3-vector will be clearly indicated by $\vec{p}$ for example. In abstract index notation this means $x \leftrightarrow x^\mu$, which is called the contravariant vector. The covariant vector $x_\mu$ is defined by
-\begin{equation}
-  x_\mu = \eta_{\mu \nu} x^\nu,  
-\end{equation}
-using the Einstein sum convention
-\begin{equation}
-  \sum_{\mu = 0}^3 \eta_{\mu \nu} x^\nu \definedas \eta_{\mu \nu} x^\nu, 
-\end{equation}
-where repeated indices are always summed over the whole domain of the index.
