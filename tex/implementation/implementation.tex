@@ -1,1 +1,22 @@
 \chapter{Detection simulation}\label{ch:detection-simulation}
+
+\section{Generation of EMRI LISA response}\label{sec:generation-of-emri-lisa-response}
+Elaborate on \emph{FEW} \cite{Katz_2021,Chua_2021} and \emph{fastlisaresponse} \cite{Katz_2022} package.
+
+\section{Detection of EMRI events}\label{sec:detection-of-emri-signals}
+Given an EMRI LISA response in the form of the TDI channels $A,E$ and $T$, where $T$ corresponds to the \emph{null} or \emph{noise} channel and can therefore be neglected, we call it a detection if the optimal SNR is above the threshold $\text{SNR}_{\text{th}} = 20$. The optimal SNR is defined as
+\begin{equation}
+    \label{eq:optimal-snr}
+    \begin{split}
+        \text{SNR} &= \braket{h(t), h(t)}^{1/2}, \\
+        &= \left( \int_{0}^{\infty} \frac{\abs{\tilde{h}(f)}^2}{S_n(f)} \, \text{d}f \right)^{1/2},
+    \end{split}
+\end{equation}
+where $S_n(f)$ is the single-sided noise power spectral density (PSD) of the LISA detector. \emph{Single-sided} because it is obtained from integrating over the physical frequency range $[0, \infty)$. By construction, the TDI channels $A$ and $E$ are orthogonal with respect to the scalar product of real functions \fullref{eq:scalar-product-real-functions}, and therefore the optimal SNR is given by
+\begin{equation}
+    \label{eq:optimal-snr-tdi}
+    \text{SNR} = \left( \int_{0}^{\infty} \frac{\abs{\tilde{h}_A(f)}^2 + \abs{\tilde{h}_E(f)}^2}{S_n(f)} \, \text{d}f \right)^{1/2}.
+\end{equation}
+Because the generation of the LISA response scales with the observation time $\tobs$, in the interest of computational efficiency, we introduce a first checkpoint called \emph{quick SNR check} where we compute the SNR for an observation time $\tobs = 1\unit{yr}$
+
+\subsection{Computing Cramér-Rao bounds}\label{subsec:cramer-rao-bound}

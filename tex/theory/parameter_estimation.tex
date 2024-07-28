@@ -1,8 +1,37 @@
 \chapter{Parameter estimation}
 
-Analysis of time series signals.
-
-\section{Cramer-Rao bounds}
-
-\subsection{Fisher information matrix}
+The goal of this chapter is to estimate the limits of reconstructing the 15 parameters defining an EMRI event given the signal in the TDI channels $A,E,T$ of the LISA detector of the event. This is a case for an Bayesian approach to the question: "What are the most likely parameter values and their uncertainties given the signal?". There is a chapter in \cite[chapter 7.4.2]{10.1093/acprof:oso/9780198570745.001.0001} dedicated to this question, also elaborating on the different estimators that can be used. Very briefly, the signal $s(t)$ is a combination of the gravitational waveform $h(t)$ and the noise $n(t)$:
+\begin{equation}
+    s(t) = h(t; \theta_t) + n(t),
+\end{equation}
+where $\theta_t$ is the set of true but unknown parameters defining the waveform. The likelihood function is then
+\begin{equation}
+    p(s|\theta_t) = \mathcal{N} \exp\left(-\frac{1}{2} \braket{s(t) - h(t; \theta_t) | s(t) - h(t; \theta_t)}\right),
+\end{equation}
+where $\braket{a(t)|b(t)}$ is the scalar product for two real functions $a(t), b(t)$
+\begin{equation}
+    \label{eq:scalar-product-real-functions}
+    \braket{a(t)|b(t)} = 4 \Re \left[ \int_{0}^{\infty} \frac{\tilde{a}(f) \tilde{b}^\ast(f)}{S_n(f)} \dd{f} \right],
+\end{equation}
+where $\tilde{a}(f)$ is the Fourier transform of $a(t)$, $S_n(f)$ is the noise spectral density\footnote{also referred to as noise spectral sensitivity or noise power spectrum} the star $\ast$ denotes complex conjugation and $\Re$ is the real part. We can rewrite the likelihood function as
+\begin{equation}
+    \begin{split}
+        p(s|\theta_t) &= \mathcal{N} \exp\left(\braket{h(t; \theta_t) | s(t)} -\frac{1}{2} \braket{h(t; \theta_t | h(t; \theta_t))} -\frac{1}{2} \braket{s(t) | s(t)} \right), \\
+        &= \tilde{\mathcal{N}} \exp\left(\braket{h(t; \theta_t) | s(t)} -\frac{1}{2} \braket{h(t; \theta_t | h(t; \theta_t))} \right),
+    \end{split}
+\end{equation}
+where we absorbed the exponential factor w.r.t. the scalar product of $s(s)$ into the normalization constant $\tilde{\mathcal{N}}$. In the limit of large SNR, the error of the parameter estimation becomes small and allows us to expand the likelihood function around the maximum likelihood estimate $\hat{\theta}$ with $\theta^i = \hat{\theta}^i + \Delta \theta^i$ for the $i$-th parameter to quadratic order in $\Delta \theta$. For a uniform prior, the posterior distribution is then
+\begin{equation}
+    p(\theta | s) = \hat{\mathcal{N}} \exp\left(-\frac{1}{2} \bm{\Gamma}_{ij} \Delta \theta^i  \Delta \theta^j\right),
+\end{equation}
+where $\Gamma_{ij}$ is the \emph{Fisher information matrix}
+\begin{equation}
+    \bm{\Gamma}_{ij} = \braket{\partial_i \partial_j h(t, \theta | h(t; \theta) - s(t))} + \braket{\partial_i h(t; \theta) | \partial_j h(t; \theta)} \approx \braket{\partial_i h(t; \theta) | \partial_j h(t; \theta)},
+\end{equation}
+where $\partial_i$ denotes the partial derivative w.r.t. the $i$-th parameter and the approximation uses the fact that for large SNR $\abs{n(t)} \ll \abs{h(t, \theta)}$. From this we can derive the \emph{Cramér-Rao bounds} on the parameter errors of the parameter estimation in the form a the covariance matrix, given by
+\begin{equation}
+    \label{eq:cramer-rao-bound}
+    \left(\bm{\Sigma}_{\text{CR}}\right)^{ij} = \left(\bm{\Gamma}^{-1}\right)^{ij}.
+\end{equation}
+The Cramér-Rao bound is the highest possible precision of the parameter estimation, given the signal $s(t)$ and the waveform $h(t; \theta)$ in the limit of large SNR.
 
