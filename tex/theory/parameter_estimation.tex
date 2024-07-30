@@ -1,4 +1,4 @@
-\chapter{Parameter estimation}
+\chapter{Parameter estimation}\label{ch:parameter-estimation}
 
 The goal of this chapter is to estimate the limits of reconstructing the 15 parameters defining an EMRI event given the signal in the TDI channels $A,E,T$ of the LISA detector of the event. This is a case for an Bayesian approach to the question: "What are the most likely parameter values and their uncertainties given the signal?". There is a chapter in \cite[chapter 7.4.2]{10.1093/acprof:oso/9780198570745.001.0001} dedicated to this question, also elaborating on the different estimators that can be used. Very briefly, the signal $s(t)$ is a combination of the gravitational waveform $h(t)$ and the noise $n(t)$:
 \begin{equation}
@@ -26,6 +26,7 @@ where we absorbed the exponential factor w.r.t. the scalar product of $s(s)$ int
 \end{equation}
 where $\Gamma_{ij}$ is the \emph{Fisher information matrix}
 \begin{equation}
+    \label{eq:fisher-information-matrix}
     \bm{\Gamma}_{ij} = \braket{\partial_i \partial_j h(t, \theta | h(t; \theta) - s(t))} + \braket{\partial_i h(t; \theta) | \partial_j h(t; \theta)} \approx \braket{\partial_i h(t; \theta) | \partial_j h(t; \theta)},
 \end{equation}
 where $\partial_i$ denotes the partial derivative w.r.t. the $i$-th parameter and the approximation uses the fact that for large SNR $\abs{n(t)} \ll \abs{h(t, \theta)}$. From this we can derive the \emph{Cramér-Rao bounds} on the parameter errors of the parameter estimation in the form a the covariance matrix, given by
