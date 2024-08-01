@@ -1,10 +1,14 @@
-\chapter{LISA}
+\chapter{Laser Interferometer Space Antenna}\label{chap:lisa}
  [REFERENCES: \cite{babak2021lisasensitivitysnrcalculations}, \cite{PhysRevD.95.103012}]
-\section{Introduction}
+The LISA project is a space-based gravitational wave detector that is currently under development by the European Space Agency (ESA) after being finally approved to be built in early 2024. Not only will LISA be the first space-based gravitational wave detector, but it will also be the first detector to observe gravitational waves in the millihertz frequency range. This frequency range is inaccessible to ground-based detectors like LIGO and Virgo due to the seismic noise that dominates at these low frequencies and the limitations on the armlengths of the detectors. For this reason LISA will open the door to a new era in gravitational wave astronomy in terms of precision but also by the events that we can observe one of them being the inspiral of compact objects around supermassive black holes, i.e. extreme mass ratio inspirals (EMRIs). In this chapter we will discuss the LISA detector, its response to gravitational waves and the data analysis techniques that are used to extract the signals from the noise.
 
 \section{Measurements with LISA}
+Before we can start doing data analysis with LISA measurements we need to understand how the detector works, what a given signal looks like in the detector frame and what is the response of the detector to the gravitational wave signal. This section is meant to give an overview of what we will discuss in the following sections. The gravitation wave signal that is produced by an EMRI event at first is theoretically predicted in the source frame and in the framework of general relativity this will correspond to $h(t) = h_+(t) + h_\times(t)$ where $h_+(t)$ and $h_\times(t)$ are the two polarizations of the gravitational wave signal. The signal is then transformed into the barycentric frame of the solar system which is the center around which the LISA detector orbits. We then have to further transform into the orbiting detector frame to get the signal that LISA will receive. This is characterized by the antenna pattern functions of the detector. As one continues to take more and more details of the motion of the detector into account, one finally ends up with what is called Time Delay interferometry (TDI).
 
 \subsection{The detector frame}
+We recall that we have derived the signal of an EMRI event in the barycentric frame of the solar system.
+
+
 
 Construction of and transformation into the detector frame.
 

@@ -1,3 +1,35 @@
 \chapter{GLADE+ Galaxy Catalog}\label{chap:galaxy_catalog}
 
-[REFERENCES: \cite{D_lya_2022}]
+The galaxy catalog we use in the present work is the GLADE+ catalog \cite{D_lya_2022}. The catalog uses data from six independent astronomical surveys and achieve nearly full sky coverage. For the inference of the hubble constant we will use the galaxy catalog to cross-match EMRI gravitational wave detections to galaxies in the catalog as possible hosts. The information we extract from the catalog is the following:
+
+\begin{itemize}
+  \item Redshift $z$
+  \item Redshift error\footnote{The catalog already provides estimations on the peculiar velocity error, which we also include in the redshift error.} $\sigma_z$
+  \item Redshift measurement flag $z_{\text{flag}}$
+  \item Galaxy stellar mass $\Mstellar$
+  \item Galaxy stellar mass error $\sigma_{\Mstellar}$
+  \item Azimuthal angle $\vartheta$
+  \item Longitudinal angle $\varphi$
+\end{itemize}
+
+In the end we want to compare the posterior of the reduced hubble constant $\rhubble$ with and without using the stellar mass $\Mstellar$ information. So that each galaxy is potentially available for both evaluations we remove all galaxies that do not have any information on the stellar mass $\Mstellar$, which makes up roughly 3.5\% of the catalog. Further, we filter for galaxies that have a direct redshift measurement $z_{\text{flag}} \in {1, 3}$, where $z_{\text{flag}} = 1$ indicates a photometric redshift measurement and $z_{\text{flag}} = 3$ indicates a spectroscopic redshift measurement. By this restriction that the provided redshift is not calculated from the luminosity distance $\dl$ using a cosmological model and therefore maybe another \emph{true} value for the reduced hubble constant $\rhubble$. Obviously the stellar mass of the galaxy at first has nothing to do with the EMRI process of a compact object spiraling into a massive black hole. However, there is research about the relation of the stellar mass of a galaxy to the mass of the central massive black hole, which usually is the host of EMRI events. This enables us to use the stellar mass $\Mstellar$ from the catalog and black hole mass $\Mbh$\footnote{In fact, we have to use the redshifted black hole mass $\Mz$ because that is what we measure, but in the end it boils down to comparing the black hole mass.} as an additional parameter in the inference of the reduced hubble constant $\rhubble$.
+
+\subsection{Stellar mass - central black hole mass relation}
+To use the information on the stellar mass $\Mstellar$ of the galaxies in the galaxy catalog we need to relate the stellar mass to the mass of the central black hole $\Mbh$. The relation between the stellar mass of a galaxy and the mass of the central black hole has been empirically studied for example in \cite{Reines_2015}. \textbf{TODO: MORE DETAIL ON THE WORK}. The empirical relation they find is given by
+\begin{equation}
+  \label{eq:stellar-mass-bh-mass-relation}
+  \log_{10} \left( \frac{\Mbh}{\Msol} \right) = \alpha + \beta \log_{10} \left( \frac{\Mstellar}{10^{11} \Msol} \right),
+\end{equation}
+where $\alpha = 7.45 \pm 0.08$ and $\beta = 1.05 \pm 0.11$ are the best fit parameters. We will use this relation to estimate the mass of the central black hole $\Mbh$ for each galaxy in the galaxy catalog by performing an error propagation of the stellar mass $\Mstellar$ itself, in addition to the errors on the fit as well. After performing this relation we can define the galaxy catalog as follows: 
+
+\begin{definition}
+  The galaxy catalog $\galcat$ is a collection of galaxies $\mathcal{G} = \left \{ \galaxy_i \right \}_{i\in\naturalnumbers}$ where each galaxy $\galaxy_i$ is given by
+  \begin{equation}
+    \label{eq:galaxy}
+    \galaxy_i \coloneqq \left \{ z_i, \sigma_{z_i}, M_{i}, \sigma_{M_{i}}, \vartheta_i, \varphi_i \right \},
+  \end{equation}
+  where $z_i, \sigma_{z_i}, M_{i}, \sigma_{M_{i}}, \vartheta_i, \varphi_i$ are the redshift, redshift error, galaxy central black hole mass, galaxy central black hole mass error, azimuthal angle and longitudinal angle, respectively.
+\end{definition}
+
+\section{Incompleteness of the galaxy catalog}
+The incompleteness of the galaxy catalog is a major issue for the inference of $\rhubble$. We cannot simply assume that the true host galaxy of an EMRI event is in the galaxy catalog but have to marginalize over both possibilities, as we will see later. This will also limit the impact of \emph{dark sirens} because the catalog is restricted to nearby galaxies compared to the expected EMRI population. [TODO: figure with incompleteness]
