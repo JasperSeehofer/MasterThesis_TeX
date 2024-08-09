@@ -1,0 +1,146 @@
+\chapter{Data analysis with detectors}\label{ch:data-analyses}
+
+\section{Introduction}
+In this chapter, we will discuss the data analysis techniques used in the field of gravitational wave astronomy. We will focus on Bayesian inference, which is a powerful tool for parameter estimation and model selection, the former of which we will use and the latter is not needed in this work as we only use the $\lamcdm$ model throughout the evaluation. But first we need to understand the shape of the signal and the limitations due to noise. In \cite[chapter 7]{10.1093/acprof:oso/9780198570745.001.0001} there is an instructive introduction to the topic of data analysis in gravitational wave astronomy and following sections try to summarize what is provided there. We will often already refer to $h(t)$ being the gravitational wave signal even though
+the statements are general and can be applied to any signal.
+\section{Noise Spectral Density}
+Let's start at the the detector output, which has the form
+\begin{equation}
+    \label{eq:detector-output}
+    s(t) = h(t) + n(t),
+\end{equation}
+where $s(t)$ is the detector output, $h(t)$ is the signal we are interested in and $n(t)$ is the noise of the detector. The main question is how and to what extend can we distinguish the signal $h(t)$ from the noise $n(t)$. For a stationary noise we can introduce
+\begin{equation}
+    \label{eq:noise-spectral-density}
+    \begin{split}
+        \braket{n^2(t)} &= \int_{-\infty}^{\infty} \dd f \dd f' \braket{n^\ast (f) n (f)} \\
+        &= \frac{1}{2} \int_{-\infty}^{\infty} \dd f \nsd \\
+        &= \int_{-\infty}^{\infty} \dd{f} \nsd,
+    \end{split}
+\end{equation}
+where $\nsd$ is the \emph{Noise Spectral Density}\footnote{Often also related to as (noise) power spectral density or noise power spectrum} and is defined by
+\begin{equation}
+    \label{eq:noise-spectral-density-definition}
+    \braket{n^\ast(f) n(f')} = \frac{1}{2} \nsd \delta(f - f'),
+\end{equation}
+where we assume that the noise is stationary, i.e. $\braket{n(t)}=0$.
+This means the noise spectral density characterizes the detector in the sense that it shows for which frequencies the detector is most sensitive. The noise spectral density is a function of frequency and is measured in $\text{Hz}^{-1}$. It should be noted that some works talk about the \emph{spectral strain sensitivity} which is $\sqrt{\nsd}$ and therefore measured in $\text{Hz}^{-1/2}$.
+
+\section{Detector pattern functions}
+If we recall the gravitational wave decomposes into two polarizations as derived in \fullref{chap:gravitational_waves} $h_+(t)$ and $h_\times(t)$ as
+\begin{equation}
+    \label{eq:gw-polarizations}
+    h_{ij}(t) = \sum_{A = +, \times} e^A_{ij}(\hat{n}) h_A(t),
+\end{equation}
+where $e^A_{ij}(\hat{n})$ are the polarization tensors and $\hat{n}$ is the direction of propagation. Alternatively, the complex representation can be used $h(t) = h_+(t) -i h_\times(t)$. The detector output can be written as
+\begin{equation}
+    \label{eq:detector-output-polarizations}
+    s(t) = F_+(\vartheta, \varphi) h_+(t) + F_\times(\vartheta, \varphi) h_\times(t)
+\end{equation}
+where $F_+(\vartheta, \varphi)$ and $F_\times(\vartheta, \varphi)$ are the \emph{detector pattern functions} which depend on the direction of $\hat{\bm{n}} = (\vartheta, \varphi)
+$. In fact, for LISA $F_+, F_\times$ are time-dependent due to the motion of the detector. We will construct the detector pattern functions for LISA in chapter \fullref{chap:lisa}.
+
+\section{Signal-to-noise ratio}
+To introduce the signal-to-noise ration (SNR) we first need to quickly cover what is called \emph{matched filtering}. This is a powerful techniques because we are not limited to detect signals with an amplitude above the noise level. Let us consider a \emph{filter function} $K(t)$ and define
+\begin{equation}
+    \label{eq:filtered-signal}
+    \hat{s} = \int_{-\infty}^{\infty} \dd{t} K(t) s(t).
+\end{equation}
+If we know the shape of the waveform $h(t)$ we are interested in and simply consider $K(t) = h(t)$ we see that \fullref{eq:filtered-signal} has one term $h^2(t) \ge 0$ and the noise term $n(t) h(t)$ that will be oscillating in positive and negative values in general. Thus, the better we know the waveforms of $h(t)$ the better we can distinguish the signal from the noise. This is why the technique is called \emph{matched filtering}. While $K(t) = h(t)$ is the optimal filter function to maximize the SNR if we consider white noise, more generally we can define
+\begin{equation}
+    \label{eq:S-snr}
+    \begin{split}
+        S &= \int_{-\infty}^{\infty} \dd{t} \braket{s(t)}K(t) \\
+        &= \int_{-\infty}^{\infty} \dd{f} \tilde{h}(f) \tilde{K}^\ast(f),
+    \end{split}
+\end{equation}
+where we used $\braket{n(t)} = 0$, $s(t) = h(t) + n(t)$ and $\tilde{h}(f)$ is the Fourier transform of $h(t)$. For the noise we can compute the root mean square of the noise, when there is no waveform $h(t) = 0$ in $\hat{s}$
+\begin{equation}
+    \label{eq:N-snr}
+    \begin{split}
+        N^2 &= \left[ \braket{\hat{s}^2(t)} - \braket{\hat{s}(t)}^2 \right]_{h(t)=0} \\
+        &=  \int_{-\infty}^{\infty} \dd{f} \frac{\nsd}{2} |\tilde{K}(f)|^2.
+    \end{split}
+\end{equation}
+Introducing the scalar product for given noise spectral density $\nsd$ and two real functions $a(t), b(t)$
+\begin{equation}
+    \label{eq:scalar-product}
+    \braket{h, h'} = 4 \Re \int_{0}^{\infty} \dd{f} \frac{\tilde{a}^\ast(f) \tilde{b}(f)}{\nsd},
+\end{equation}
+we can define the optimal signal-to-noise ratio of a waveform $h(t)$ as
+
+\begin{equation}
+    \label{eq:snr}
+    \boxed{\text{SNR}^2  = \left(\frac{S}{N}\right)^2 = \braket{h, h} = 4 \Re \int_{0}^{\infty} \dd{f} \frac{\abs{\tilde{h}(f)}^2}{\nsd}.}
+\end{equation}
+
+
+\section{Bayesian inference}
+In this section we construct the heart of the inference of $\rhubble$. Let us build the Bayesian approach from the definition of conditional probability. We have two random variables $A$ and $B$ and we want to know the probability of $A$ given $B$, i.e. $p(A|B)$. We can write this as
+\begin{equation}
+    \label{eq:conditional-probability}
+    p(A|B) \definedas \frac{p(A \cap B)}{p(B)}.
+\end{equation}
+From this we can derived
+\begin{align*}
+    \label{eq:conditional-probability-2}
+     &                 & p(A \cap B) & = p(B \cap A)               & \\
+     & \Leftrightarrow & p(A|B) p(B) & = p(B|A) p(A)               & \\
+     & \Leftrightarrow & p(A|B)      & = \frac{p(B|A) p(A)}{p(B)}, &
+\end{align*}
+where the last line
+\begin{equation}
+    \label{eq:bayes-theorem}
+    \boxed{p(A|B) = \frac{p(B|A) p(A)}{p(B)}}
+\end{equation}
+is known as \emph{Bayes' theorem}. To get some intuition what we will use this formula later for, let us consider $A = \mathcal{H}$ being a hypothesis and $B = \mathcal{D}$ being the data. Ignoring the normalization constant $p(\mathcal{D})$ we can write
+\begin{equation}
+    \label{eq:bayes-theorem-hypothesis-data}
+    p(\mathcal{H}|\mathcal{D}) \propto p(\mathcal{D}|\mathcal{H}) p(\mathcal{H}).
+\end{equation}
+the above can be understood as follows: We are interested in the probability of the hypothesis given the data which is called the \emph{posterior probability}. On the right hand side we have $p(\mathcal{D}|\mathcal{H})$ known as the \emph{likelihood function} (likelihood), i.e. the probability of (observing) the data given the hypothesis. The term $p(\mathcal{H})$ is the \emph{prior probability} (prior) of the hypothesis where we can include our knowledge about the hypothesis before we have observed the data. For example for the reduced hubble constant $\rhubble$ we could impose a prior that restricts the values to a given interval or use preceding measurements to estimate our believe in certain values of $\rhubble$. The denominator $p(\mathcal{D})$ is the \emph{evidence} and is the probability of the data and often just referred to as a normalization constant.
+
+\section{Parameter estimation}\label{sec:parameter-estimation}
+
+As a first application of the Bayesian approach we can take a look at the parameter estimation of a signal as in \fullref{eq:detector-output}. So the question is: Given the signal $s(t)$ and the waveform $h(t; \theta)$, where $\theta$ is a set of parameters that the waveform depends on, how and to what precision can we estimate the parameters $\theta$? \\
+In terms of the Bayesian approach this corresponds to asking for the posterior distribution of the parameters $\theta$ given the signal $s(t)$, i.e. $p(\theta | s)$. From Bayes' theorem in \fullref{eq:bayes-theorem} we write
+\begin{equation}
+    \label{eq:parameter-estimation}
+    p(\theta_t | s) \propto p(s | \theta_t) p(\theta_t),
+\end{equation}
+where $\theta_t$ are the true but unknown parameters. There is a chapter in \cite[chapter 7.4.2]{10.1093/acprof:oso/9780198570745.001.0001} dedicated to this question, also elaborating on the different estimators that can be used. Very briefly, the signal $s(t)$ is a combination of the gravitational waveform $h(t)$ and the noise $n(t)$:
+\begin{equation}
+    s(t) = h(t; \theta_t) + n(t).
+\end{equation}
+To construct the likelihood function we can start from the assumption that the noise is stationary and gaussian, i.e.
+\begin{equation}
+    p(n_0) = \mathcal{N} \exp\left(-\frac{1}{2} \braket{n_0 , n_0}\right),
+\end{equation}
+where $\mathcal{N}$ is the normalization constant and p($n_0$) is the probability that the noise has the specific form of $n_0$. By replacing $n_0$ with $s(t) - h(t; \theta_t)$ we can obtain the likelihood function as
+\begin{equation}
+    p(s|\theta_t) = \mathcal{N} \exp\left(-\frac{1}{2} \braket{s(t) - h(t; \theta_t) , s(t) - h(t; \theta_t)}\right).
+\end{equation}
+We can rewrite the likelihood function as
+\begin{equation}
+    \begin{split}
+        p(s|\theta_t) &= \mathcal{N} \exp\left(\braket{h(t; \theta_t) | s(t)} -\frac{1}{2} \braket{h(t; \theta_t | h(t; \theta_t))} -\frac{1}{2} \braket{s(t) | s(t)} \right), \\
+        &= \tilde{\mathcal{N}} \exp\left(\braket{h(t; \theta_t) | s(t)} -\frac{1}{2} \braket{h(t; \theta_t | h(t; \theta_t))} \right),
+    \end{split}
+\end{equation}
+where we absorbed the exponential factor w.r.t. the scalar product of $s(t)$ into the normalization constant $\tilde{\mathcal{N}}$. In the limit of large SNR, the error of the parameter estimation becomes small and allows us to expand the likelihood function around the maximum likelihood estimate $\hat{\theta}$ with $\theta^i = \hat{\theta}^i + \Delta \theta^i$ for the $i$-th parameter to quadratic order in $\Delta \theta$. For a uniform prior, the posterior distribution is then
+\begin{equation}
+    p(\theta | s) = \hat{\mathcal{N}} \exp\left(-\frac{1}{2} \bm{\Gamma}_{ij} \Delta \theta^i  \Delta \theta^j\right),
+\end{equation}
+where $\Gamma_{ij}$ is the \emph{Fisher information matrix}
+\begin{equation}
+    \label{eq:fisher-information-matrix}
+    \bm{\Gamma}_{ij} = \braket{\partial_i \partial_j h(t, \theta , h(t; \theta) - s(t))} + \braket{\partial_i h(t; \theta) , \partial_j h(t; \theta)} \approx \braket{\partial_i h(t; \theta) , \partial_j h(t; \theta)},
+\end{equation}
+where $\partial_i$ denotes the partial derivative w.r.t. the $i$-th parameter and the approximation uses the fact that for large SNR $\abs{n(t)} \ll \abs{h(t, \theta)}$. From this we can derive the \emph{Cramér-Rao bounds} on the parameter errors of the parameter estimation in the form a the covariance matrix, given by
+\begin{equation}
+    \label{eq:cramer-rao-bound}
+    \left(\bm{\Sigma}_{\text{CR}}\right)^{ij} = \left(\bm{\Gamma}^{-1}\right)^{ij}.
+\end{equation}
+The Cramér-Rao bound is the highest possible precision of the parameter estimation, given the signal $s(t)$ and the waveform $h(t; \theta)$ in the limit of large SNR.
+
+

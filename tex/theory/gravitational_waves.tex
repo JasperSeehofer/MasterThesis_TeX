@@ -4,15 +4,128 @@
 This chapter is heavily based on \cite{10.1093/acprof:oso/9780198570745.001.0001}
 
 \section{GR in a nutshell}
+In this section we will give a brief overview of the theory of General Relativity (GR) but already focusing on the aspects that are relevant for the understanding of gravitational waves. The common interpretation of GR is the geometric approach, that is the idea that the presence of matter and energy curves the spacetime, i.e. defines the metric $\metric$ which is the fundamental object in GR that describes the geometry of the spacetime. It should be said, that this is not the general case, where the connection $\connection$ is not completely determined by the metric, leading to more general considerations of the theory, also known as the trinity of GR \cite{Heisenberg_2019}. But for standard GR the metric is the fundamental object after we have chosen the connection to be the Levi-Civita connection $\nabla_\text{LC}$. This means that the metric is preserved
+\begin{equation}
+    \label{eq:metric_preservation}
+    \nabla_\text{LC} g = 0,
+\end{equation}
+and secondly that the connection is torsion-free, i.e. let $X,Y$ be vector fields, then
+\begin{equation}
+    \label{eq:torsion_free}
+    \nabla^{\text{LC}}_X Y - \nabla^{\text{LC}}_Y X = [X,Y],
+\end{equation}
+where $[\cdot,\cdot]$ is the \emph{Lie-bracket}. A more commonly known consequence of the Levi-Civita connection is the symmetry of the Christoffel symbols
+\begin{equation}
+    \Gamma^{\lambda}_{\mu\nu} = \Gamma^{\lambda}_{\nu\mu},
+\end{equation}
+that are the coefficient functions of the connection in a local coordinate basis
+\begin{equation}
+    \nabla^{\text{LC}}_{\partial_\mu} \partial_\nu = \Gamma^{\lambda}_{\mu\nu} \partial_\lambda,
+\end{equation}
+where $\partial_\mu$ are the coordinate basis vectors of chosen coordintes $x^\mu$. For the Levi-Civita connection the Christoffel symbols are given by
+\begin{equation}
+    \Gamma^{\lambda}_{\mu\nu} = \frac{1}{2} g^{\lambda\sigma} \left( \partial_\mu g_{\nu\sigma} + \partial_\nu g_{\mu\sigma} - \partial_\sigma g_{\mu\nu} \right),
+\end{equation}
+where $g^{\mu\nu}$ is the inverse metric tensor and Einstein sum convention applies. This is what it means, that the metric is the fundamental object in GR (with Levi-Civita connection), as it uniquely defines the connection and allows us to characterize the spacetime by a manifold $\manifold$ and the metric $g$ usually denoted as $(\manifold, g)$. We will not try to give a full introduction to GR here, but rather wanted to stress the importance of the metric in GR to better appreciate the notion of gravitational waves, which are ripples or more mathematically speaking perturbations in the metric tensor, hence in the spacetime itself. For detailed an introductory text books on GR the interested reader is referred to [TODO: ref WALD, SCHUTZ, etc.]. In this work we will start from the action of GR and then consider perturbations of the metric to derive the notion of gravitational waves and their shape. We will follow closely \cite[chapter 1]{10.1093/acprof:oso/9780198570745.001.0001}, a standard textbook on gravitational waves and their observation. The equations of motion in GR are given by the Einstein equations, which can be derived from the Einstein-Hilbert action. The most important principle of GR is the equivalence principle, represented by the famous elevator thought experiment, which states that the effects of gravity are locally indistinguishable from the effects of acceleration. One can therefore change the notion of free fall to free fall under the influence of gravity, where the free fall is the trajectory of a particle that is not subject to any forces other than gravity. Mathematically this means the particle moves along geodesics of the spacetime, which are the curves that extremize the length of the curve, i.e. the action. Secondly, the theory of general \emph{relativity} - as name suggests - follows the principle that a theory in its true shape should be observer independent. This introduces the notion of relativity and requirement for the full theory to be invariant under transformation of the reference frame. The first step will therefore be to introduce the Einstein-Hilbert action and derive the Einstein equations from it.
 
 \subsection{The Einstein-Hilbert action}
-
-The Einstein-Hilbert action is given by
+The idea of minimal action is a common theme in physics, that is given the action of a theory one can derive the equations of motion (geodesic equation) by variation of the action. For GR, which is build on a 4 dimensional Lorentzian manifold $\manifold$ with metric $\metric$ and in the absence of matter the action is given by the Einstein-Hilbert action
 \begin{equation}
-    S_{\text{EH}} = \frac{1}{16\pi G} \int d^4 x \sqrt{-g} R,
+    \label{eq:einstein-hilbert-action}
+    S_{\text{EH}}[\metric] = \frac{c^3}{16\pi G} \int d^4 x \sqrt{-g} R,
+\end{equation}
+where $G$ is the gravitational constant, $c$ the speed of light, $d^4 x$ is the volume element, $g$ is the determinant of the metric tensor $g_{\mu\nu}$ and $R$ is the Ricci scalar. In the previous section we stated that the theory has to be invariant under transformations of the reference frame, which means our action should be constructed from (Lorentz) scalars. With the fundamental object of the theory being the metric tensor $\metric$, which gives rise to the curvature tensor (Riemann curvature tensor)
+\begin{equation}
+    R^{\lambda}_{\mu\nu\kappa} = \partial_\nu \Gamma^{\lambda}_{\mu\kappa} - \partial_\kappa \Gamma^{\lambda}_{\mu\nu} + \Gamma^{\lambda}_{\sigma\nu} \Gamma^{\sigma}_{\mu\kappa} - \Gamma^{\lambda}_{\sigma\kappa} \Gamma^{\sigma}_{\mu\nu},
+\end{equation}
+there is only one Lorentz invariant scalar that can be constructed from the metric tensor, which is the Ricci scalar
+\begin{equation}
+    \label{eq:ricci_scalar}
+    \begin{split}
+        R &= g^{\mu\nu} R_{\mu\nu} \\
+        &= g^{\mu\nu} R^{\lambda}_{\mu\lambda\nu},
+    \end{split}
+\end{equation}
+where $R_{\mu\nu}$ is the Ricci tensor. This is the motivation why the Einstein-Hilbert action is constructed from the Ricci scalar. When matter enters the scene, we need to modify the action to include the matter contribution
+\begin{equation}
+    S = S_\text{EH} + S_{\text{M}},
+\end{equation}
+where $S_{\text{M}}$ is the matter action. The energy-momentum tensor $\emtensor$ is \emph{defined} when we vary the matter action with respect to the metric. From this full action $S$ we can derive the Einstein equations by variation of the metric. The Einstein equations are given by
+\begin{equation}
+    \label{eq:einstein-equations}
+    \boxed{R_{\mu\nu} - \frac{1}{2} g_{\mu\nu} R = \frac{8\pi G}{c^4} T_{\mu\nu}.}
+\end{equation}
+This equation is the core for the geometric interpretation, where the right hand side of the equation, i.e. the energy-momentum tensor $\emtensor$, is determined by the matter distribution in the universe. While the left hand side is purely geometric in the sense that it only depends on the metric tensor $\metric$. For that reason one can say: \emph{Matter determines the geometry of spacetime and in turn the geometry of spacetime yields the trajectory (geodesic) of test masses.} \\
+
+\section{Perturbations of the metric}
+In the introduction of this chapter we stated that the theory should be invariant under transformations of the reference frame to be a \emph{full theory}. To put this mathematically, we can consider to reference frames $x^\mu$ and $\tilde{x}^\mu$ and look at the transformation
+\begin{equation}
+    \label{eq:coordinate-transformation}
+    x^\mu \longrightarrow \tilde{x}^\mu(x),
+\end{equation}
+where $\tilde{x}^\mu$ is a diffeomorphism. This means that the metric tensor $\metric$ should transform as
+\begin{equation}
+    \tilde{g}_{\mu\nu}(\tilde{x}) = \frac{\partial x^\lambda}{\partial \tilde{x}^\mu} \frac{\partial x^\kappa}{\partial \tilde{x}^\nu} g_{\lambda\kappa}(x).
+\end{equation}
+In terms of the theory being invariant under transformations as in \fullref{eq:coordinate-transformation} this means that the action should be invariant under these transformations and is called the \emph{gauge symmetry} of GR. If we now consider a perturbation of the metric $\metric$ such that $g_{\mu\nu} = \eta_{\mu\nu} + \hmunu$, where $\eta_{\mu\nu}$ is the Minkowski metric and $\abs{\hmunu} \ll 1$ in some reference frame, we break the gauge symmetry of the theory and can see how the action changes under this perturbation up to first order (\emph{linearized theory}). Note, that one still has a symmetry in this new theory
+\begin{equation}
+    \label{eq:linearized-gauge-symmetry}
+    \hmunu \longrightarrow \tilde{h}_{\mu\nu} = \hmunu - (\partial_\mu \xi_\nu + \partial_\nu \xi_\mu),
+\end{equation}
+for suitable small diffeomorphisms $\xi_\mu$, such that the condition $\abs{\hmunu} \ll 1$ is not violated. If we plug this into the Einstein-Hilbert action \fullref{eq:einstein-hilbert-action} and apply the variation, we get the linearized Einstein equations
+\begin{equation}
+    \label{eq:linearized-einstein-equations}
+    \Box \bar{h}_{\mu\nu} + \eta_{\mu\nu} \partial^\alpha \partial^\beta h_{\alpha\beta} - \partial^\rho\partial_\nu\bar{h}_{\mu\rho} - \partial^\rho \partial_\mu \bar{h}_{\nu\rho} = -\frac{16\pi G}{c^4} T_{\mu\nu},
+\end{equation}
+where $\Box = \partial^\mu \partial_\mu$ is the d'Alembert operator and $\bar{h}_{\mu\nu} = h_{\mu\nu} - \frac{1}{2} \eta_{\mu\nu} h$ and $h = \eta^{\mu\nu} h_{\mu\nu}$. It is important to note that in this linearized theory we use $\eta_{\mu\nu}$ to raise and lower indices. Now we can use the gauge freedom we observed in \fullref{eq:linearized-gauge-symmetry} to simplify the equations. For example, if we consider the \emph{Lorentz gauge}
+\begin{equation}
+    \label{eq:lorentz-gauge}
+    \partial^\mu \bar{h}_{\mu\nu} = 0,
+\end{equation}
+we obtain the equations of motion for $\bar{h}_{\mu\nu}$
+\begin{equation}
+    \label{eq:lorentz-gauge-eom}
+    \Box \bar{h}_{\mu\nu} = -\frac{16\pi G}{c^4} T_{\mu\nu}.
+\end{equation}
+In this choice for the gauge symmetry of the linearized theory we also get the conservation of energy-momentum
+\begin{equation}
+    \partial^\mu T_{\mu\nu} = 0.
+\end{equation}
+In \fullref{eq:lorentz-gauge-eom} we have the first result on the generation of gravitational waves, where $\emtensor$ is the source for the gravitational waves. If we now look at the regions far away from the source, i.e. $\emtensor = 0$ this reduces to the free wave equation
+\begin{equation}
+    \label{eq:free-wave-equation}
+    \Box \bar{h}_{\mu\nu} = 0.
+\end{equation}
+So far we have reduced the degrees of freedom by imposing the Lorentz gauge in \fullref{eq:lorentz-gauge}, i.e. we have 4 constraints on a 4x4 symmetric matrix (total degrees of freedom = 10) which leaves us with 6 degrees of freedom for $\bar{h}_{\mu\nu}$. However, even after using the Lorentz gauge we still have a freedom $\Box\xi_\mu = 0$  where $\xi^\mu$ in
+\begin{equation}
+    x^\mu \longrightarrow \tilde{x}^\mu = x^\mu + \xi^\mu(x),
+\end{equation}
+is a diffeomorphism and after the Lorentz gauge the linearized Einstein equations still render invariant under $\Box \xi_\mu = 0$. Hence, we still have the freedom of choosing a suitable $\xi^\mu$ to simplify the equations further and to reduce the degrees of freedom by 4 again, leaving us with 2 propagating degrees of freedom. These are the two polarizations of the gravitational waves. We can use this freedom to impose the \emph{transverse-traceless gauge}\footnote{\emph{Transvere} is the name of $\bar{h}_\mu\nu$.}
+\begin{equation}
+    \label{eq:transverse-traceless-gauge}
+    \eta^{\mu\nu} \bar{h}_{\mu\nu} = \bar{h} = 0 \quad h^{0i} = 0,
+\end{equation}
+where the first condition is what the name says, setting the trace of the transverse of $h$ to zero, but then $\bar{h}_{\mu\nu} = \hmunu$ and for that reason we can directly impose the second condition in \fullref{eq:transverse-traceless-gauge} without confusing $\hmunu$ and $\bar{h}_{\mu\nu}$. If we now imagine a gravitational wave traveling along the $z$-axis and using the plane wave solution to \fullref{eq:free-wave-equation} we end up with
+\begin{equation}
+    \label{eq:gravitational-wave-solution}
+    \boxed{h^{\text{TT}}_{ab} = \begin{pmatrix}
+        h_+      & h_\times \\
+        h_\times & -h_+     \\
+    \end{pmatrix}_{ab} \cos \left( \omega (t - \frac{z}{c}) \right),}
+\end{equation}
+where $k^\mu = (\frac{\omega}{c}, \vec{k}), \abs{\vec{k}} = \frac{\omega}{c}, \hat{n} = \hat{e}_z = \frac{\vec{k}}{\abs{k}}$ and $a,b = x,y$ ($x-y$ plane). $h_+$ and $h_\times$ are the two polarizations (degrees of freedom) that are propagating and we see that for a wave traveling along the $z$-axis we have varying amplitudes in the $x-y$-plane. We can write the general solution as a plane wave expansion
+\begin{equation}
+    h_{ab}(t, \vec{x}) = \sum_{A = +,\times} \int_{-\infty}^{\infty} \dd f \int \dd^2 \hat{n}  \tilde{h}_A(f, \hat{n}) \varepsilon^A_{ab}(\hat{n}) e^{-2\pi i f (t - \frac{\hat{n}\cdot \vec{x}}{c})},
+\end{equation}
+where $\hat{n}$ is the direction of propagation, $\tilde{h}(f)$ is the Fourier transform of $h_A(t)$ with $\tilde{h}(-f, \hat{n}) = \tilde{h}^\ast(f, \hat{n})$ and
+\begin{equation}
+    \varepsilon^+ = \begin{pmatrix}
+        1 & 0  \\
+        0 & -1
+    \end{pmatrix}, \quad \varepsilon^\times = \begin{pmatrix}
+        0 & 1 \\
+        1 & 0
+    \end{pmatrix}.
 \end{equation}
 
-where $G$ is the gravitational constant, $d^4 x$ is the volume element, $g$ is the determinant of the metric tensor $g_{\mu\nu}$ and $R$ is the Ricci scalar. The action is a functional of the metric tensor $g_{\mu\nu}$.
-
-\section{Perturbation theory}
-
+\section{Compact binary systems}

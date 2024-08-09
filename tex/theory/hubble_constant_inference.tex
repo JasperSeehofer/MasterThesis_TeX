@@ -25,10 +25,10 @@ The concept of cross-matching the EMRI detections to galaxies in galaxy catalog 
 \section{Bayesian Inference}
 The inference of the reduced hubble constant $\rhubble$ from the EMRI detections is a Bayesian inference problem. A detailed derivation of the inference is provided in \cite{10.1093/mnras/stab2741}. We want to infer the posterior distribution of the reduced hubble constant $\rhubble$ given the EMRI detections $\detections$, the galaxy catalog $\galcat$, a cosmological model $\cosmologicalmodel$ and background information on the inference of the hubble constant $\backgroundinformation$. The posterior probability distribution is then given by Bayes' theorem
 \begin{equation}
-  \label{eq:bayes-theorem}
+  \label{eq:bayes-theorem-hubble}
   p(\rhubble |\detections , \galcat , \cosmologicalmodel) = p(\rhubble | \galcat , \cosmologicalmodel, \backgroundinformation) \frac{p(\detections |\rhubble , \galcat , \cosmologicalmodel, \backgroundinformation) }{p(\detections | \galcat , \cosmologicalmodel , \backgroundinformation)},
 \end{equation}
-where the terms on the right hand side of \fullref{eq:bayes-theorem} in more detail are as follows:
+where the terms on the right hand side of \fullref{eq:bayes-theorem-hubble} in more detail are as follows:
 \begin{description}
   \item[$p(\rhubble | \galcat , \cosmologicalmodel, \backgroundinformation)$] is the \emph{prior} distribution of the reduced hubble constant given the galaxy catalog, cosmological model and background information.
   \item[$p(\detections |\rhubble , \galcat , \cosmologicalmodel, \backgroundinformation)$] is the \emph{likelihood} of the EMRI detections given the reduced hubble constant, galaxy catalog, cosmological model and background information.
@@ -38,33 +38,13 @@ where the terms on the right hand side of \fullref{eq:bayes-theorem} in more det
   The evidence $p(\detections | \galcat , \cosmologicalmodel , \backgroundinformation)$ is only relevant if we want to compare different models such as cosmological models. In our case we will restrict ourselves to the flat ($k=0$) $\lamcdm$ model and therefore the evidence is not needed. Still we can use the evidence to normalize the posterior distribution. Thus, we can write the posterior distribution as
   \begin{equation}
     \label{eq:bayes-theorem-no-evidence}
-    \mathcal{N} \coloneqq p(\detections | \galcat , \cosmologicalmodel , \backgroundinformation) \in \mathbb{R}_{>0}.
+    \mathcal{N} \coloneqq p(\detections | \galcat , \cosmologicalmodel , \backgroundinformation) = \int \dd \rhubble \, p(\rhubble | \galcat , \cosmologicalmodel, \backgroundinformation) \cdot p(\detections |\rhubble , \galcat , \cosmologicalmodel, \backgroundinformation).
   \end{equation}
 \end{remark}
 
 \subsection{Cosmological model}
-The cosmological model we will use in the present work is the flat $\lamcdm$ model. The model is characterized by the following parameters:
-\begin{itemize}
-  \item Reduced hubble constant $\rhubble$
-  \item Matter density $\Omega_m$
-  \item Dark energy density $\Omega_\Lambda$
-\end{itemize}
-The model is based on the FLRW metric and the Friedmann equations. The luminosity distance $\dl$ is then given by
-\begin{equation}
-  \label{eq:luminosity-distance}
-  \dl(z, \rhubble) = (1 + z) \frac{c}{\hubble} \int_0^z \frac{dz'}{\sqrt{\Omega_m (1 + z')^3 + \Omega_\Lambda}},
-\end{equation}
-which we want to recover from the inference.
-Beware that this is a function of $\hubble$ which can be written in terms of the reduced hubble constant $\rhubble$ as
-\begin{equation}
-  \label{eq:hubble-constant}
-  \hubble = 100 \, \text{km/s/Mpc} \cdot \rhubble.
-\end{equation}
-[TODO: REDSHIFTING OF MEASURED MASS] The redshifted mass $\Mz$ for a (black hole) $\Mbh$ mass at redshift $z$ given by
-\begin{equation}
-  \label{eq:redshifted-mass}
-  \Mz = \Mbh \cdot (1 + z).
-\end{equation}
+The cosmological model we will use in the present work is the flat $\lamcdm$ model as introduced in \ref{ch:cosmology}. For the inference of $\rhubble$ we will use the reduced Hubble constant defined in \fullref{eq:reduced-hubble-constant}, the $\dl$-$z$ relation given in \fullref{eq:luminosity-distance-redshift-relation-lcdm}
+and therefore the matter density $\Omega^m_0$ and dark energy density $\Omega^\Lambda_0$ from the $\lamcdm$ model with fixed values given in \fullref{eq:omega-matter-0}.
 
 \subsection{Background information}
 \subsubsection{Cosmological model information}
@@ -83,28 +63,18 @@ The following will be assumed to hold for all (EMRI) detections:
 \end{enumerate}
 In more detail, (1) the full likelihood of the EMRI detections is given by the product of the likelihoods of the individual detections. (2) The source of the EMRI event is the position of each possible host galaxy, is hosted by one galaxy and does not change over time. (4) The mass of the central BH is the mass of the BH in the EMRI detection.
 
-\subsection{Prior distribution}
+\subsection{Prior distribution}\label{sec:prior-distribution}
 We now need to construct the prior distribution for the reduced hubble constant $\rhubble$. From the background information we know that the reduced hubble constant is uniformly distributed in the range $\rhubble \in [0.6, 0.86]$. Let us define
 \begin{equation}
   \label{eq:rhubble-min-max}
   \rhubble_{\text{min}} \coloneqq 0.6, \quad \rhubble_{\text{max}} \coloneqq 0.86.
 \end{equation}
-The first requirement is therefore
+The prior is therefore
 \begin{equation}
   \label{eq:prior-requirement-1}
   p(\rhubble | \galcat , \cosmologicalmodel, \backgroundinformation) \propto \Theta(\rhubble - \rhubble_{\text{min}}) \cdot \Theta(\rhubble_{\text{max}} - h),
 \end{equation}
 where $\Theta$ is the Heaviside step function.
-The second information that the prior distribution inherits is the distance-redshift relation \fullref{eq:luminosity-distance}. Hence, the second requirement is
-\begin{equation}
-  \label{eq:prior-requirement-2}
-  p(\rhubble | \galcat , \cosmologicalmodel, \backgroundinformation) \propto \delta(\dl - \dl(z,\rhubble)).
-\end{equation}
-Combining both requirements we can write the prior distribution as
-\begin{equation}
-  \label{eq:prior-distribution}
-  p(\rhubble | \galcat , \cosmologicalmodel, \backgroundinformation) \coloneqq \Theta(\rhubble - \rhubble_{\text{min}}) \cdot \Theta(\rhubble_{\text{max}} - h) \cdot \delta(\dl - \dl(z,\rhubble)).
-\end{equation}
 
 \subsection{Likelihood}
 The construction of the likelihood is the most important part of the inference. The likelihood is the probability of the EMRI detections given the reduced hubble constant, galaxy catalog, cosmological model and background information. From the background information $\backgroundinformation$ we know that the EMRI detections are statistically uncorrelated. Therefore,
@@ -112,102 +82,199 @@ The construction of the likelihood is the most important part of the inference. 
   \label{eq:likelihood}
   p(\detections |\rhubble , \galcat , \cosmologicalmodel, \backgroundinformation) = \prod_{\detection \in \detections} p(\detection |\rhubble , \galcat , \cosmologicalmodel, \backgroundinformation),
 \end{equation}
-where $p(\detection |\rhubble , \galcat , \cosmologicalmodel, \backgroundinformation)$ is the likelihood of a single EMRI detection given the reduced hubble constant, galaxy catalog, cosmological model and background information. In general, EMRI events are described by the full 15 parameters [REF TO CHAPTER]. This means we would have to take all parameters and there correlations into account. The parameters that are used for the inference in other works [TODO: REFS] are the luminosity distance $\dl$, the redshift of the gravitational wave $\zgw$ the azimuthal angle $\vartheta$, the longitudinal angle $\varphi$. We will extend the considered parameters by the mass of the central black hole $\Mbh$. But note that the detection parameter is the redshifted black hole mass $\Mz$. We can trivially rewrite the single detection likelihood as
+where $p(\detection |\rhubble , \galcat , \cosmologicalmodel, \backgroundinformation)$ is the likelihood of a single EMRI detection given the reduced hubble constant, galaxy catalog, cosmological model and background information. In general, EMRI events are described by the full 15 parameters [REF TO CHAPTER, ASSUMPTION AS POINT IN $\mathcal{Q}$] and therefore the probability of detection given a point $q\in\mathcal{Q}\subset \mathbb{R}^{15}$, SNR$\definedas \varrho(q)$ and a SNR threshold $\varrho_{\text{th}}$, i.e.
+\begin{equation}
+  \label{eq:detection-probability}
+  p( \varrho \ge \varrho_{\text{th}} | q) = \Theta(\varrho(q) - \varrho_{\text{th}}),
+\end{equation}
+is a binary function that is 1 if the event is detected and 0 otherwise. If we now reduce the number of parameters via marginalization to those that we consider relevant for the inference, this detection probability becomes a continuous function of the reduced parameter space. In addition to the parameters of the EMRI event we also need to consider the parameters that we can't measure but are essential for the inference, i.e. the redshift $\zgw$ which one obtains from the electromagnetic counterpart for (bright) sirens and the source mass of the black hole $\Mbh$ because we only measure the redshifted mass of it. So let us start from the expression including all parameters, where we write explicitly $\dl, \zgw, \Mbh, \Mz, \varphi, \vartheta$ while we collect the rest of the parameters the EMRI event depends on in $\xi$. We can then trivially write
 \begin{equation}
   \label{eq:likelihood-extended}
   \begin{split}
-    p(\detection |\rhubble , \galcat , \cosmologicalmodel, \backgroundinformation) = &\frac{1}{\beta(\rhubble)}\int \dd \dl \dd \zgw \dd \varphi \dd \vartheta \dd \Mbh \dd \Mz \\
-    &\cdot p(\dl, \zgw, \vartheta, \varphi, \Mbh, \Mz |\rhubble , \galcat , \cosmologicalmodel, \backgroundinformation) \\
-    &\cdot p( \detection | \dl, \zgw, \vartheta, \varphi, \Mbh, \Mz, \rhubble , \galcat , \cosmologicalmodel, \backgroundinformation),
+    p(\detection |\rhubble , \galcat , \cosmologicalmodel, \backgroundinformation) = &\frac{1}{\beta(h)}\int \dd \dl \dd \zgw \dd \varphi \dd \vartheta \dd \Mbh \dd \Mz \dd \xi \\
+    &\cdot p(\dl, \zgw, \vartheta, \varphi, \Mbh, \Mz, \xi |\rhubble , \galcat , \cosmologicalmodel, \backgroundinformation) \\
+    &\cdot p( \detection | \dl, \zgw, \vartheta, \varphi, \Mbh, \Mz, \xi, \rhubble , \galcat , \cosmologicalmodel, \backgroundinformation),
   \end{split}
 \end{equation}
-integrating each parameter over its full parameter range and introducing a bias correction term in accordance with . This allows us to evaluate the detection likelihood at given fixed parameters. Still the probability distribution $p(\dl, \zgw, \vartheta, \varphi, \Mbh |\rhubble , \galcat , \cosmologicalmodel, \backgroundinformation)$ is not obvious at all. To address this, we will use the chain rule $p(A \cap B) = p(A|B) \cdot p(B)$ to seperate the probability distribution. If two parameters are uncorrelated the chain rule reduces to the product of the individual probability distributions. First, assuming the sky position ($\varphi, \vartheta$) is independent of the other parameters we can rewrite
+integrating each parameter over its full parameter range where $\beta(h)$ is an important normalization that we will address later. This allows us to evaluate the detection likelihood at given fixed parameters. Still the probability distribution $p(\dl, \zgw, \vartheta, \varphi, \Mbh, \Mz, \xi |\rhubble , \galcat , \cosmologicalmodel, \backgroundinformation)$ is not obvious at all. To address this, we will use the chain rule $p(A \cap B) = p(A|B) \cdot p(B)$ to factor the probability distribution. If two parameters are uncorrelated the chain rule reduces to the product of the individual probability distributions we will first write everything explicitly before we decide what is correlated or uncorrelated. Hence, let us us isolate all the parameters $\xi$ from the other parameters and lastly use the chain rule for $\dl$ and $\Mz$. This will leave us with
 \begin{equation}
   \label{eq:likelihood-seperated}
   \begin{split}
-    p(\dl, \zgw, \vartheta, \varphi, \Mbh |\rhubble , \galcat , \cosmologicalmodel, \backgroundinformation) = &p(\dl, \zgw, \Mbh, \Mz | \rhubble , \galcat , \cosmologicalmodel, \backgroundinformation) \\
-    &\cdot p(\vartheta, \varphi | \rhubble , \galcat , \cosmologicalmodel, \backgroundinformation).
+    p(\dl, \zgw, \vartheta, \varphi, \Mbh, \Mz, \xi |\rhubble , \galcat , \cosmologicalmodel, \backgroundinformation) = &\cdot p(\xi | \dl, \zgw, \vartheta, \varphi, \Mbh, \Mz, \rhubble , \galcat , \cosmologicalmodel, \backgroundinformation), \\
+    &\cdot p(\dl | \zgw, \Mbh, \Mz, \vartheta, \varphi, \xi, \rhubble , \galcat , \cosmologicalmodel, \backgroundinformation) \\
+    &\cdot p(\Mz | \zgw, \Mbh, \vartheta, \varphi, \xi, \rhubble , \galcat , \cosmologicalmodel, \backgroundinformation) \\
+    &\cdot p(\zgw, \Mbh, \vartheta, \varphi | \rhubble , \galcat , \cosmologicalmodel, \backgroundinformation),
   \end{split}
 \end{equation}
-Using the chain rule several times we end up with
-\begin{equation}
-  \label{eq:likelihood-seperated-2}
-  \begin{split}
-    p(\dl, \zgw, \Mbh, \Mz | \rhubble , \galcat , \cosmologicalmodel, \backgroundinformation) &= p(\dl, \Mbh, \Mz | \zgw, \rhubble , \galcat , \cosmologicalmodel, \backgroundinformation) \\
-    & \quad \cdot p(\zgw | \rhubble , \galcat , \cosmologicalmodel, \backgroundinformation) \\
-    &= p(\dl | \zgw, \rhubble , \galcat , \cosmologicalmodel, \backgroundinformation) \\
-    & \quad \cdot p( \Mz |\Mbh, \zgw, \rhubble , \galcat , \cosmologicalmodel, \backgroundinformation) \\
-    & \quad \cdot p( \Mbh | \rhubble , \galcat , \cosmologicalmodel, \backgroundinformation) \\
-    & \quad \cdot p(\zgw | \rhubble , \galcat , \cosmologicalmodel, \backgroundinformation),
-  \end{split}
-\end{equation}
-where we assumed the correlations (indicated by $\sim$): $\dl \sim \zgw , \Mz \sim \zgw , \Mz \sim \Mbh $. Here we can start identifiying some probability distributions. First, we have the redshifted mass $\Mz$ which is given by \fullref{eq:redshifted-mass}, which yields
+where one can see clearly the consecutive application of the chain rule. Here we can start identifying some probability distributions that we know. We will always start by slashing out ($\slashed{p}$) all fixed parameters that we assume to be uncorrelated - do not worry, we have not suddenly introduced the \emph{slash notation} from Dirac fields. First, we have the redshifted mass $\Mz$ which is given by \fullref{eq:redshifted-mass} and therefore becomes
 \begin{equation}
   \label{eq:mass-redshifted-delta}
-  p( \Mz |\Mbh, \zgw, \rhubble , \galcat , \cosmologicalmodel, \backgroundinformation) = p( \Mz |\Mbh, \zgw, \cosmologicalmodel) = \delta(\Mz - \Mbh \cdot (1 + \zgw)),
+  p(\Mz | \zgw, \Mbh, \slashed{\vartheta}, \slashed{\varphi}, \slashed{\xi}, \slashed{\rhubble} , \slashed{\galcat}, \cosmologicalmodel, \slashed{\backgroundinformation}) = p( \Mz |\Mbh, \zgw, \cosmologicalmodel) = \delta(\Mz - \Mbh \cdot (1 + \zgw)).
 \end{equation}
-where we first explicitly reduced to the true dependencies for clearer appearance. Similarly, the luminosity distance $\dl$ is given by \fullref{eq:luminosity-distance} and we can write
+Similarly, the luminosity distance $\dl$ as a function of $z$ and $\rhubble$ is defined in the cosmological model $\lamcdm$ given by \fullref{eq:luminosity-distance-redshift-relation-lcdm} and we can write
 \begin{equation}
   \label{eq:luminosity-distance-delta}
-  p(\dl | \zgw, \rhubble , \galcat , \cosmologicalmodel, \backgroundinformation) = p(\dl | \zgw, \cosmologicalmodel) = \delta(\dl - \dl(\zgw, \rhubble)).
+  p(\dl | \zgw, \slashed{\Mbh}, \slashed{\Mz}, \slashed{\vartheta}, \slashed{\varphi}, \slashed{\xi}, \rhubble , \slashed{\galcat} , \cosmologicalmodel, \slashed{\backgroundinformation}) = p(\dl | \zgw, \cosmologicalmodel) = \delta(\dl - \dl(\zgw, \rhubble)).
 \end{equation}
-The last two probability distributions in \fullref{eq:likelihood-seperated-2} depend on the galaxy catalog $\galcat$. Plugging \fullref{eq:luminosity-distance-delta} and \fullref{eq:mass-redshifted-delta} back into \fullref{eq:likelihood-seperated-2} we can reinsert everything back into \fullref{eq:likelihood-extended} to obtain
+Let us stress this once more, whenever $\dl$ appears with parantheses it is the $\dl-z$ relation from the cosmological model and if it appears without, it is the luminosity distance as a parameter (e.g. measured luminosity distance). For the last term in \fullref{eq:likelihood-seperated}
+\begin{equation}
+  \label{eq:galaxy-catalog-emri-delta}
+  \begin{split}
+    p(\zgw, \Mbh, \vartheta, \varphi | \rhubble , \galcat , \cosmologicalmodel, \backgroundinformation) &= p(\zgw, \Mbh, \vartheta, \varphi | \slashed{\rhubble}, \galcat , \cosmologicalmodel, \slashed{\backgroundinformation}) \\
+    &=  p(\zgw, \Mbh, \vartheta, \varphi | \galcat) \cdot p(\zgw, \Mbh| \cosmologicalmodel) \\
+    &= \left[ \sum_{k=1}^{N_g} \delta(\varphi - \varphi_k) \delta(\vartheta - \vartheta_k) \normaldistat{\Mbh}{\Mbh^{(k)}} \normaldistat{\zgw}{z_k} \right] \\
+    & \quad \cdot p_{\text{EMRI}}(\zgw, \Mbh) \\
+    &\eqqcolon p_\text{cat}(\zgw, \Mbh, \vartheta, \varphi) \cdot p_\text{EMRI}(\zgw, \Mbh),
+  \end{split}
+\end{equation}
+where the term in $\left[ \cdots \right]$ is the galaxies in the catalog [REF] and $p_\text{EMRI}(\zgw, \Mbh)$ is an astrophysical \emph{expected} EMRI distribution as a function of the redshift and the black hole mass [REF]. Regarding the normal distribution of the redshift it is important to note that to have a redshift $\zgw$ of the gravitational wave signal it must have originated from a galaxy at the same redshift. The normal distribution evaluated at $\zgw$ reflects the probability that the redshift of the galaxy $k$ coincides with the redshift of the gravitational wave signal. Until now we successfully ignored the problematic probability distribution
+\begin{equation}
+  p(\xi | \dl, \zgw, \vartheta, \varphi, \Mbh, \Mz, \rhubble , \galcat , \cosmologicalmodel, \backgroundinformation),
+\end{equation}
+because we do not really have knowledge about the parameters that we could use for the inference of $\rhubble$. For that reason we marginalize over all parameters in $\xi$, i.e. later perform the integration assuming that the parameters are not correlated to the rest of the remaining parameters. We can reinsert \fullref{eq:mass-redshifted-delta}, \fullref{eq:luminosity-distance-delta} \& \fullref{eq:galaxy-catalog-emri-delta} back into \fullref{eq:likelihood-extended} to obtain
 \begin{equation}
   \label{eq:likelihood-extended-2}
   \begin{split}
-    p(\detection |\rhubble , \galcat , \cosmologicalmodel, \backgroundinformation) = &\int \dd \vartheta \dd \varphi \dd \Mbh \dd \zgw \dd \dl \dd \Mz \\
+    p(\detection |\rhubble , \galcat , \cosmologicalmodel, \backgroundinformation) = &\frac{1}{\beta(h)}\int \dd \dl \dd \zgw \dd \varphi \dd \vartheta \dd \Mbh \dd \Mz \dd \xi \\
     &\cdot \delta(\dl - \dl(\zgw, \rhubble)) \\
     &\cdot \delta(\Mz - \Mbh \cdot (1 + \zgw)) \\
-    &\cdot p( \detection | \vartheta, \varphi, \Mbh, \zgw, \rhubble , \galcat , \cosmologicalmodel, \backgroundinformation) \\
-    &\cdot p(\vartheta, \varphi | \rhubble , \galcat , \cosmologicalmodel, \backgroundinformation) \\
-    &\cdot p( \Mbh | \rhubble , \galcat , \cosmologicalmodel, \backgroundinformation) \\
-    &\cdot p(\zgw | \rhubble , \galcat , \cosmologicalmodel, \backgroundinformation).
+    &\cdot p(\xi | \dl, \zgw, \vartheta, \varphi, \Mbh, \Mz, \rhubble , \galcat , \cosmologicalmodel, \backgroundinformation) \\
+    &\cdot p_\text{cat}(\zgw, \Mbh, \vartheta, \varphi) \\
+    &\cdot p_\text{EMRI}(\zgw, \Mbh) \\
+    &\cdot p( \detection | \dl, \vartheta, \varphi, \Mbh, \Mz, \zgw, \xi, \rhubble, \galcat, \cosmologicalmodel, \backgroundinformation). \\
   \end{split}
 \end{equation}
-The last three probability distributions in \fullref{eq:likelihood-extended-2} depend on the galaxy catalog and recombined can be compactly written as
-\begin{equation}
-  \label{eq:likelihood-galaxy}
-  \begin{split}
-    p(\varphi, \vartheta, \Mbh, \zgw | \galcat) &= \sum_{k=1}^{N_g} \delta(\varphi - \varphi_k) \delta(\vartheta - \vartheta_k) \frac{\exp \left \{ - \frac{(\Mbh - \Mbh^{(k)})^2}{2 \sigma_{\Mbh^{(k)}}^2} \right \}}{\sqrt{2 \pi \sigma_{\Mbh^{(k)}}^2}} \frac{\exp \left \{ - \frac{(\zgw - z_k)^2}{2 \sigma_{z_k}^2} \right \}}{\sqrt{2 \pi \sigma_{z_k}^2}} \\
-    &= \sum_{k=1}^{N_g} \delta(\varphi - \varphi_k) \delta(\vartheta - \vartheta_k) \normaldistat{\Mbh}{\Mbh^{(k)}} \normaldistat{\zgw}{z_k},
-  \end{split}
-\end{equation}
-recalling that $\normaldistat{x}{\omega}$ is the normal distribution with mean $\omega$ and variance $\sigma^2_{\omega}$ evaluated at $x$. The sum runs over all $N_g$ galaxies in the galaxy catalog. While $\varphi_k, \vartheta_k$ are exact values, $\Mbh^{(k)}$ and $z_k$ come with an error $\sigma_{\Mbh^{(k)}}$ and $\sigma_{z_k}$, respectively, and are therefore modeled as normal distributions. Regarding the normal distribution of the redshift it is important to note that to have a redshift $\zgw$ of the gravitational wave signal it must have originated from a galaxy at the same redshift. The normal distribution evaluated at $\zgw$ reflects the probability that the redshift of the galaxy $k$ coincides with the redshift of the gravitational wave signal. Now we are only left with $p( \detection | \vartheta, \varphi, \Mbh, \zgw, \rhubble , \galcat , \cosmologicalmodel, \backgroundinformation)$, which is the likelihood of the EMRI signal. As we have derived in [TODO: CHAPTER LISA EMRI PARAMETER ESTIMATION] a EMRI detection is the set of best guess parameters $\bm{\hat{\theta}} = (\hat{\dl}, \hat{\varphi}, \hat{\vartheta}, \hat{\Mz})$ and the covariance matrix $\bm{\Sigma}$ for these parameters obtained from the \emph{Fisher information matrix}. The likelihood of a detection given the parameters the parameters $\bm{\theta} = \dl, \varphi, \vartheta, \Mz$ can then be estimated as a multivariate normal distribution
+Now we are only left with $p( \detection | \dl, \vartheta, \varphi, \Mbh, \Mz, \zgw, \xi, \rhubble, \galcat, \cosmologicalmodel, \backgroundinformation)$, which is the likelihood of observing detection $\detection$ given all fixed parameters and information. First for $\detection$ to be a detection, obviously it must have passed the SNR check in \fullref{eq:detection-probability}. Secondly, we assume that the measured parameters follow a gaussian distribution around the true parameter values, where we approximate the EMRI event as a point $q_\text{EMRI} \in \mathcal{Q}$. We can therefore introduce what is called a \emph{quasi-likelihood} as a multivariate gaussian distribution centered on the best guess parameters from the measurement. As we have derived in [TODO: CHAPTER LISA EMRI PARAMETER ESTIMATION] an EMRI detection provides us with a set of these best guess parameters $\bm{\hat{\theta}} = (\hat{\dl}, \hat{\varphi}, \hat{\vartheta}, \hat{\Mz}, \hat{\xi})$ and the covariance matrix $\bm{\Sigma}$ for these parameters obtained from the \emph{Fisher information matrix}. The likelihood of a detection given the parameters the parameters $\bm{\theta} = (\dl, \varphi, \vartheta, \Mz, \xi)$ can then be estimated as a multivariate gaussian distribution
 \begin{equation}
   \label{eq:likelihood-emri-signal}
-  p( \detection | \vartheta, \varphi, \Mbh, \zgw, \rhubble , \galcat , \cosmologicalmodel, \backgroundinformation) = \frac{1}{\sqrt{(2 \pi)^4 \abs{\bm{\Sigma}}}} \cdot \exp \left \{-\frac{1}{2}\bm{\tilde{\theta}}^T \bm{\Sigma}^{-1} \bm{\tilde{\theta}} \right \},
+  \begin{split}
+    p( \detection | \dl, \vartheta, \varphi, \Mbh, \Mz, \zgw, \xi, \rhubble, \galcat, \cosmologicalmodel, \backgroundinformation) = &\Theta\left( \varrho(\dl, \vartheta, \varphi, \Mbh, \Mz, \zgw, \xi) - \varrho_\text{th} \right) \\
+    \cdot&\frac{1}{\sqrt{(2 \pi)^{N_p} \abs{\bm{\Sigma}}}} \cdot \exp \left \{-\frac{1}{2}\bm{\tilde{\theta}}^T \bm{\Sigma}^{-1} \bm{\tilde{\theta}} \right \},
+  \end{split}
 \end{equation}
-where $\bm{\tilde{\theta}} = \bm{\theta} - \bm{\hat{\theta}}$ is the difference between the parameters and the best guess parameters. Finally, we can plug \fullref{eq:likelihood-galaxy} and \fullref{eq:likelihood-emri-signal} back into \fullref{eq:likelihood-extended-2} to obtain the full likelihood of the EMRI detection:
+where $\bm{\tilde{\theta}} = \bm{\theta} - \bm{\hat{\theta}}$ and $N_p = 15$ is the number of parameters. Finally, we can plug \fullref{eq:likelihood-emri-signal} back into \fullref{eq:likelihood-extended-2} to obtain the full likelihood of the EMRI detection:
 \begin{equation}
   \label{eq:likelihood-full}
   \begin{split}
-    p(\detection |\rhubble , \galcat , \cosmologicalmodel, \backgroundinformation) = &\int \dd \vartheta \dd \varphi \dd \Mbh \dd \zgw \dd \dl \dd \Mz \\
+    p(\detection |\rhubble , \galcat , \cosmologicalmodel, \backgroundinformation) = &\frac{1}{\beta(h)}\int \dd \dl \dd \zgw \dd \varphi \dd \vartheta \dd \Mbh \dd \Mz \dd \xi \\
     &\cdot \delta(\dl - \dl(\zgw, \rhubble)) \\
     &\cdot \delta(\Mz - \Mbh \cdot (1 + \zgw)) \\
-    &\cdot \frac{1}{\sqrt{(2 \pi)^4 \abs{\bm{\Sigma}}}} \cdot \exp \left \{-\frac{1}{2}\bm{\tilde{\theta}}^T \bm{\Sigma}^{-1} \bm{\tilde{\theta}} \right \} \\
-    &\cdot \sum_{k=1}^{N_g} \delta(\varphi - \varphi_k) \delta(\vartheta - \vartheta_k) \normaldistat{\Mbh}{\Mbh^{(k)}} \normaldistat{\zgw}{z_k}.
+    &\cdot p(\xi | \dl, \zgw, \vartheta, \varphi, \Mbh, \Mz, \rhubble , \galcat , \cosmologicalmodel, \backgroundinformation) \\
+    &\cdot p_\text{cat}(\zgw, \Mbh, \vartheta, \varphi) \\
+    &\cdot p_\text{EMRI}(\zgw, \Mbh) \\
+    &\cdot \Theta\left( \varrho(\dl, \vartheta, \varphi, \Mbh, \Mz, \zgw, \xi) - \varrho_\text{th} \right) \\
+    &\cdot \left(\sqrt{(2 \pi)^{N_p} \abs{\bm{\Sigma}}}\right)^{-1} \cdot \exp \left \{-\frac{1}{2}\bm{\tilde{\theta}}^T \bm{\Sigma}^{-1} \bm{\tilde{\theta}} \right \}.
   \end{split}
 \end{equation}
-Performing the integration over the sky position $\varphi, \vartheta$, luminosity distance $\dl$ and the redshifted blaack hole mass $\Mz$ we can use the delta functions to simplify the expression. The final likelihood of the EMRI detection is then given by:
+Now that we arrived at the full expression of the single event likelihood, let us perform the integrations that are straightforward, i.e. the $\delta$-functions with respect to $\dl, \Mz, \vartheta$ and $\varphi$
+\begin{equation}
+  \label{eq:likelihood-delta-integrated}
+  \begin{split}
+    p(\detection |\rhubble , \galcat , \cosmologicalmodel, \backgroundinformation) = &\frac{1}{\beta(h)} \sum_{k=1}^{N_g} \int \dd \zgw \dd \Mbh \dd \xi \\
+    &\cdot p(\xi | \dl(\zgw, \rhubble), \zgw, \vartheta_k, \varphi_k, \Mbh, \Mz(\Mbh, \zgw), \rhubble , \galcat , \cosmologicalmodel, \backgroundinformation) \\
+    &\cdot \normaldistat{\zgw}{z_k} \cdot \normaldistat{\Mbh}{\Mbh^(k)} \\
+    &\cdot p_\text{EMRI}(\zgw, \Mbh) \\
+    &\cdot \Theta\left( \varrho(\dl(\zgw, \rhubble), \vartheta_k, \varphi_k, \Mbh, \Mz(\Mbh, \zgw), \zgw, \xi) - \varrho_\text{th} \right) \\
+    &\cdot \left(\sqrt{(2 \pi)^{N_p} \abs{\bm{\Sigma}}}\right)^{-1} \cdot \exp \left \{-\frac{1}{2}\bm{\tilde{\theta}}^T \bm{\Sigma}^{-1} \bm{\tilde{\theta}} \right \}.
+  \end{split}
+\end{equation}
+Now it is time to perform the marginalization over the parameters $\xi$. By assuming that they are uncorrelated in $\bm{\Sigma}$ and properly normalized the integral will give $1$, but we need to keep in mind that the Heaviside funtion $\Theta$ will now become a continuous function of the reduced number of parameters
+\begin{equation}
+  \label{eq:likelihood-xi-integrated}
+  \begin{split}
+    p(\detection |\rhubble , \galcat , \cosmologicalmodel, \backgroundinformation) = &\frac{1}{\beta(h)}\sum_{k=1}^{N_g} \int \dd \zgw \dd \Mbh \\
+    &\cdot \normaldistat{\zgw}{z_k} \cdot \normaldistat{\Mbh}{\Mbh^{(k)}} \\
+    &\cdot p_\text{EMRI}(\zgw, \Mbh) \\
+    &\cdot p(\varrho \ge \varrho_\text{th} | \dl(\zgw, \rhubble), \vartheta_k, \varphi_k, \Mbh, \Mz(\Mbh, \zgw), \zgw) \\
+    &\cdot \left(\sqrt{(2 \pi)^{4} \abs{\bm{\Sigma_4}}}\right)^{-1} \cdot \exp \left \{-\frac{1}{2}\bm{\tilde{\theta}_4}^T \bm{\Sigma_4}^{-1} \bm{\tilde{\theta}_4} \right \},
+  \end{split}
+\end{equation}
+where the index $4$ in $\bm{\tilde{\theta}_4}$ and $\bm{\Sigma_4}$ indicates that we have reduced the number of parameters from $15$ to $4$.
+Let us define
+\begin{equation}
+  \label{eq:detection-probability-short-notation}
+  p_{\varrho_\text{th}}(\zgw, \Mbh, \vartheta, \varphi, \rhubble) \coloneqq p(\varrho \ge \varrho_\text{th} | \dl(\zgw, h), \vartheta, \varphi, \Mbh, \Mz(\zgw, \Mbh), \zgw),
+\end{equation}
+and if we want to write this in a compact form wwe can undo the integration over $\vartheta$ and $\varphi$ and write
 
 \begin{equation}
   \label{eq:likelihood-final}
   \boxed{
-    p(\detection |\rhubble , \galcat , \cosmologicalmodel, \backgroundinformation) = \iint \dd \zgw \dd \Mbh \sum_{k=1}^{N_g} \left[ \frac{\exp \left \{-\frac{1}{2}\bm{\tilde{\theta}}^T \bm{\Sigma}^{-1} \bm{\tilde{\theta}} \right \}}{\sqrt{(2 \pi)^4 \abs{\bm{\Sigma}}}} \normaldistat{\Mbh}{\Mbh^{(k)}} \normaldistat{\zgw}{z_k} \right]
+    \begin{aligned}
+      p(\detection |\rhubble , \galcat , \cosmologicalmodel, \backgroundinformation) = \iint & \dd \zgw \dd \Mbh \dd \vartheta \dd \varphi                                                                                                                                                                                                                                                                 \\
+                                                                                             & \cdot \left[\frac{\exp \left \{-\frac{1}{2}\bm{\tilde{\theta}_4}^T \bm{\Sigma_4}^{-1} \bm{\tilde{\theta}_4} \right \}}{\sqrt{(2 \pi)^4 \abs{\bm{\Sigma_4}}}} p_\text{cat}(\zgw, \Mbh, \vartheta, \varphi) p_\text{EMRI}(\zgw, \Mbh) p_{\varrho_\text{th}}(\zgw, \Mbh, \vartheta, \varphi, \rhubble) \right]
+    \end{aligned}
   }
 \end{equation}
 
-This is the final single event likelihood that we will use for the Bayesian inference of $\rhubble$ when we consider the black hole mass. For the reference results without considering the black hole mass we will use 
+This is the final single event likelihood that we will use for the Bayesian inference of $\rhubble$ when we consider the black hole mass. For the reference results without considering the black hole mass we will use
 \begin{equation}
   \label{eq:likelihood-final-without-mass}
   \boxed{
-    p(\detection |\rhubble , \galcat , \cosmologicalmodel, \backgroundinformation) = \iint \dd \zgw \sum_{k=1}^{N_g} \left[ \frac{\exp \left \{-\frac{1}{2}\bm{\tilde{\theta}}_{3d}^T \bm{\Sigma}_{3d}^{-1} \bm{\tilde{\theta}}_{3d} \right \}}{\sqrt{(2 \pi)^4 \abs{\bm{\Sigma}_{3d}}}} \normaldistat{\zgw}{z_k} \right]
+    \begin{aligned}
+      p(\detection |\rhubble , \galcat , \cosmologicalmodel, \backgroundinformation) = \iint & \dd \zgw \dd \vartheta \dd \varphi                                                                                                                                                                                                                                                               \\
+                                                                                             & \cdot \left[\frac{\exp \left \{-\frac{1}{2}\bm{\tilde{\theta}_3}^T \bm{\Sigma_3}^{-1} \bm{\tilde{\theta}_3} \right \}}{\sqrt{(2 \pi)^3 \abs{\bm{\Sigma_3}}}} p^{(z)}_\text{cat}(\zgw, \vartheta, \varphi) p_\text{EMRI}(\zgw) p_{\varrho_\text{th}}(\zgw, \vartheta, \varphi, \rhubble) \right],
+    \end{aligned}
   }
 \end{equation}
+where we indicated the reduced number of parameters with the index $3$ in $\bm{\tilde{\theta}_3}$ and $\bm{\Sigma_3}$ and the galaxy catalog reduced to the redshift $z$ with $p^{(z)}_\text{cat}(\zgw, \vartheta, \varphi)$. In this work, we will not consider any information on the EMRI distribution and just defined
+\begin{equation}
+  \label{eq:emri-distribution}
+  p_\text{EMRI}(\zgw, \Mbh) = \begin{cases}
+    1 & \text{if } \zgw < z_\text{draw} \text{ and } \Mbh \in [10^5, 10^6] \unit{\Msol}, \\
+    0 & \text{otherwise},
+  \end{cases}
+\end{equation}
+where $z_\text{draw} = 1.5$ and therefore essentially above any galaxy in the catalog for the defined mass range $\Mbh \in [10^5, 10^6]\Msol$ and want to make sure that we do not get contributions from parameter values that we didn't draw EMRI events from, as suggested in \cite{Gair_2023}. [TODO: DECISION WITH rho threshold because its not used. either remove or set to 1]
 
 \section{Normalization}\label{sec:normalization}
-In general, if we neglect the normalization $\beta(\rhubble)$ in \fullref{eq:likelihood-extended} and it was just an overall constant independent of $\rhubble$, the inference would not be biased even if the likelihood is not normalized. However, the normalization does indeed depend on $\rhubble$ and is derived in \cite{Gair_2023, Fishbach_2019, Chen_2018}. The effects that come into play are on the one hand, the so called \emph{GW selection effects} that take into account that not all EMRI events are detected and mostly depend on the luminosity distance $\dl$. On the other hand, the galaxy distribution in the galaxy catalog $\galcat$ has an effect on the normalization because the single event likelihoods most important gaussian peak is 
+In general, if we neglect the normalization $\beta(\rhubble)$ in \fullref{eq:likelihood-extended} and it was just an overall constant independent of $\rhubble$, the inference would not be biased even if the likelihood is not normalized. However, the normalization does indeed depend on $\rhubble$ and is for example derived in \cite{Gair_2023, Fishbach_2019, Chen_2018} but also debated about with another possible normalization \cite{Yu_2024}, \cite{trott2022challengesstatisticalgravitationalwavemethod} or rather \emph{bias correction} introduced in \cite{Chen_2022}. The most careful and detailed derivation of the full posterior is provided in \cite{Gair_2023} and we will consider this normalization as well as the bias correction from \cite{Chen_2022} and do the inference for both cases.
+\subsection{Normalization A}\label{sec:gw-selection-effects}
+This section summarizes the normalization derived in \cite{Gair_2023}. The effect that comes into play is the so called \emph{GW selection effect} that take into account up to which true $\dl$ of the detection the detection would pass the detection threshold. The single event likelihood in their case reads
 \begin{equation}
-  p(\detection | \vartheta, \varphi, \Mbh, \zgw, \rhubble , \galcat , \cosmologicalmodel, \backgroundinformation) \propto \exp \left \{-\frac{(\dl - \dl(\zgw, \rhubble))}{2\sigma_{\dl}}\right \}.
+  p(\detection |\rhubble) = \frac{\int \dd z p_\text{GW}(\detection | \dl(z, \rhubble)) p_\text{CBC}(z)}{\int \dd z P_\text{det}^\text{GW}(z, \rhubble) p_\text{CBC}(z)},
 \end{equation}
-Most important in the sense that it uses the $\dl - z$ relation to evaluate whether given redshift is compatible with the luminosity distance. This means, as we increase the value of $\rhubble$ the optimal redshift $\zgw$ for the detection will change. As a consequence galaxies at higher redshifts will be more likely to be the host of the EMRI event. If at the same time the galaxy distribution increases with $z$ the likelihood will just increase with $\rhubble$. [TODO: FINAL NORMALIZATION THAT IS BEING USED]
+where $p_\text{CBC}(z) \approx p_\text{cat}(z)$ is approximated as the galaxy catalog, the detection $\detection$ only considers the measured luminosity distance $\dlhat$ and is given by
+\begin{equation}
+  p_\text{GW}(\detection | \dl(z, \rhubble)) = \frac{1}{\sqrt{2\pi} \sigma_{\dl}} \exp \left \{-\frac{(\dlhat - \dl(z, \rhubble))^2}{2\sigma_{\dl}^2} \right \},
+\end{equation}
+with the fractional error $\sigma_{\dl} = A \dl(z, \rhubble)$ and for a luminosity distance threshold $\dlhat^\text{th} = 1550 \unit{Mpc}$ the detection probability is
+\begin{equation}
+  \begin{split}
+    P_\text{det}^\text{GW}(z, \rhubble) &= \int_{-\infty}^{\infty} \dd \dlhat p_\text{GW}(\detection | \dl(z, \rhubble)) \\
+    &= \frac{1}{2} \left[1 + \text{erf} \left( \frac{\dl(z, \rhubble) - \dlhat^\text{th}}{\sqrt{2} \sigma_{\dl}} \right) \right],
+  \end{split}
+\end{equation}
+where $\text{erf}$ is the error function. Comparing this to the likelihood in \fullref{eq:likelihood-final} we identify $p_\text{cat}$ with $p_\text{cat}$ and consider $p_\text{EMRI} = 1$ which follows their approximation $p_\text{CBC} \approx p_\text{cat}$ if understood correctly. In our evaluation we use the same threshold $\dlhat^\text{th} = 1550 \unit{Mpc}$ and also use fractional errors for the luminosity distance. Hence, the normalization $\beta^\text{A}(\rhubble)$ is given by
+\begin{equation}
+  \label{eq:normalization-gair-23}
+  \boxed{\beta^\text{A}(\rhubble) = \int \dd z P_\text{det}^\text{GW}(z, \rhubble) p_\text{cat}(z).}
+\end{equation}
+
+\subsection{Normalization B}\label{sec:bias-correction}
+On the other hand, the galaxy distribution in the galaxy catalog $\galcat$ has an effect on the likelihood as a function of $\rhubble$. This is because the likelihood depends on
+\begin{equation}
+  p(\detection | \vartheta, \varphi, \Mbh, \zgw, \rhubble , \galcat , \cosmologicalmodel, \backgroundinformation) \propto \exp \left \{-\frac{(\dl - \dl(\zgw, \rhubble))}{2\sigma_{\dl}}\right \},
+\end{equation}
+which according to \cite{Chen_2022} introduces a bias because $\dl$ as a function of $\rhubble$ is non-linear and due to its dependence the likelihood widens for higher values of $\rhubble$. This will in turn account for more possible host galaxies and therefore lead to a bias to higher values of $\rhubble$. If in addition to that the galaxy catalog distribution increases with redshift this will further enhance the bias. In the case of GLADE+ galaxy catalog this becomes really problematic, as the measurement error on the redshifts are higher then considered in the mock data analysis in most papers. This means the galaxy catalog redshift distribution as a sum over normal distributions for each galaxy smooths out and increases with redshift. The solution to this bias that \cite{Chen_2022} proposes is
+\begin{equation}
+  \label{eq:bias-correction-chen-22}
+  \boxed{\begin{aligned}
+      \beta^\text{B}(\rhubble) & = \int \dd z p_\text{gal}(z) \delta (\hat{\dl} - \dl(z, \rhubble))                                              \\
+                               & = p_\text{gal}(z(\hat{\dl})) \left( \left.\frac{\dd \dl}{\dd z}\right|_{z=z(\hat{\dl, \rhubble})} \right)^{-1},
+    \end{aligned}}
+\end{equation}
+where $p_\text{gal}(z)$ is the galaxy distribution in the galaxy catalog which we identify with our $p_\text{cat}$, $\dlhat$ is the best guess (or mean) measured luminosity distance and $\dl(z, \rhubble)$ is the luminosity distance-redshift relation. They find that the bias mainly enters as the errors on the measured parameters become larger. To summarize this bias will after all be an interplay of the errors of the measured parameters, leading to a wider likelihood and becomes less sensitive to the galaxy distribution and the redshift errors (and mass errors) from the galaxy catalog which will smooth out the galaxy catalog in the first place.
+
+\section[Potential biases]{Potential biases of the posterior}
+The entire construction of the posterior distribution $p(\rhubble | \detections, \galcat, \cosmologicalmodel, \backgroundinformation)$ is highly non-trivial and subject to current research as it depends on many different factors from the events (EMRI events in our case) being observed with a detector, which produces an interplay between what the detector can observe and what are the astrophysical expected distributions of the events, to the galaxy catalog with its galaxy distribution and errors on redshift and additionally the black hole mass in our case. For this reason one needs to be very careful with the assumptions that are made. Mostly, the assumptions are needed to be able to actually compute the posterior distribution in reasonable computation times. This complexity leads to many potential biases that can occur in the posterior distribution. We will cover the most important discussed biases in recent works. One paper that goes into detail about the construction of the posterior distribution, the assumptions one needs to be careful with, and the biases that can arise is \cite{Gair_2023}. We will quickly summarize the most important biases that are mentioned in the paper:
+\begin{description}
+  \item[double counting]
+  \item[GW detection probability]
+  \item[$z_\text{draw}$ not accounted]
+\end{description}
+
+\section{Strengths and Weaknesses of the inference}
+\begin{itemize}
+  \item $P_cat$ should not be to smooth (Problem with glade+)
+\end{itemize}

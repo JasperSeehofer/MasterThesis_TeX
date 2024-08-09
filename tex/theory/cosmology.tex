@@ -1,30 +1,100 @@
-\chapter{Cosmology}
-
+\chapter{Cosmology}\label{ch:cosmology}
+Cosmology is the study of the universe - \emph{cosmos} - as a whole, trying to understand the evolution of the universe from the Big Bang to the present day and beyond, unraveling the mysteries of structure formation and the understanding of all the exotic objects present in the universe, one of the most remarkable ones subjectively are black holes. To understand these notions and their evolution in time, this boils down to searching for solutions to the Einstein equations or even looking beyond that at possible extension of GR [TODO: REF]. In this chapter and the present work we will focus on the standard model of cosmology, the $\Lambda$CDM model, but first let us introduce the Friedmann-Lemaître-Robertson-Walker (FLRW) metric and the Friedmann equations. There is a very brief introduction in \cite{10.1093/acprof:oso/9780198570745.001.0001}, which we will cover here. For more details the reader is referred to \cite{10.1093/acprof:oso/9780198570745.001.0001}.
 \section{The Friedmann-Lemaître-Robertson-Walker metric}
-
-The Friedmann-Lemaître-Robertson-Walker (FLRW) metric is the most general form of a homogeneous and isotropic metric. It is given by
+The FLRW metric is the most general metric describing a homogeneous and isotropic universe. It is given by
 \begin{equation}
-    ds^2 = -dt^2 + a(t)^2 \left( \frac{dr^2}{1 - kr^2} + r^2 d\Omega^2 \right),
+    ds^2 = -c^2dt^2 + a(t)^2 \left( \frac{dr^2}{1 - kr^2} + r^2 d\Omega^2 \right),
 \end{equation}
-where $a(t)$ is the scale factor, $k$ is the curvature of the universe, and $d\Omega^2 = d\theta^2 + \sin^2\theta d\phi^2$ is the solid angle element. The curvature parameter $k$ can take the values $k = 0, \pm 1$, corresponding to a flat, closed, or open universe, respectively. The scale factor $a(t)$ is a function of time and describes the expansion of the universe. The Hubble parameter $H(t)$ is defined as
+where $a(t)$ is the scale factor such that the metric still solves the Einstein equations \fullref{eq:einstein-equations}, $k$ is the curvature of the universe, and $d\Omega^2 = d\theta^2 + \sin^2\theta d\phi^2$ is the solid angle element. The curvature parameter $k$ can take the values $k = 0, \pm 1$, corresponding to a flat, closed, or open universe, respectively. The scale factor $a(t)$ is a function of time and describes the expansion of the universe. The above used coordinates are the \emph{comoving coordinates}, i.e. a freely falling particle or test mass remains at the same coordinate point over time. We can now examine the case that a signal, in fact let's say two signals separated by $\Delta t_e$, traveling at the speed of light $c$ is emitted at time $t_e$ and $t_e + \Delta t_e$, respectively, from a distance $r$ and received at time $t_o, \Delta t_o$ at $r=0$. This means the signal travels along a null geodesic, i.e. $ds^2 = 0$ and we can write
 \begin{equation}
-    H(t) = \frac{\dot{a}(t)}{a(t)},
+    \int_{t_e}^{t_o} \frac{dt}{a(t)} = \int_{r}^{0} \frac{dr}{\sqrt{1 - kr^2}},
 \end{equation}
-where the dot denotes a derivative with respect to time. The Hubble parameter is a measure of the rate of expansion of the universe.
-
-\section{The Friedmann equations}
-
-The Friedmann equations describe the evolution of the scale factor $a(t)$ in an FLRW universe. They are given by
-\begin{align}\label{eq:friedmann}
-    \left( \frac{\dot{a}}{a} \right)^2 & = \frac{8\pi G}{3} \rho - \frac{k}{a^2}, \\
-    \frac{\ddot{a}}{a}                 & = -\frac{4\pi G}{3} (\rho + 3p),
-\end{align}
-where $\rho$ is the energy density and $p$ is the pressure. The first Friedmann equation is a statement of energy conservation, while the second Friedmann equation is a statement of momentum conservation. The Friedmann equations can be derived from the Einstein field equations by assuming a homogeneous and isotropic universe.
-
-\section{The hubble constant and its tension}
-
-
-\section{measuring the hubble constant}
+or with $t_e + \Delta t_e$ and $t_o + \Delta t_o$. But the right hand side will be the same in both cases. Hence, subtracting we get
+\begin{equation}
+    \Delta t_o = \Delta t_e \frac{a(t_o)}{a(t_e)}.
+\end{equation}
+This means, that the observer will measure different time intervals, also known as \emph{time-dilation} compared to the emitted signal. This allows us to introduce the notion of redshift
+\begin{equation}
+    \label{eq:redshift}
+    1 + z \definedas \frac{a(t_o)}{a(t_e)},
+\end{equation}
+where we say $z$ is the redshift of the \emph{source} as the observer is always at $r=0$. Therefore, we can relate
+\begin{equation}
+    \label{eq:redshift-time}
+    \dd t_o = \dd t_e (1+z).
+\end{equation}
+As we can see by its definition in \fullref{eq:redshift}, the redshift carries the information of the expansion of the universe and is therefore a crucial quantity and observable in cosmology. Another important quantity that we will use to infer the Hubble constant is the luminosity distance $\dl$. Consider a source emitting isotropically with luminosity
+\begin{equation}
+    L = \frac{\dd E_s}{\dd t_s},
+\end{equation}
+where $\dd E_s$ is the energy emitted in a time interval $\dd t_s$. For us, as we observe that signal we will measure a flux $F$ given by
+\begin{equation}
+    \label{eq:luminosity-distance-1}
+    F = \frac{\dd E_o}{\dd t_o} \eqqcolon \frac{L}{4\pi \dl^2},
+\end{equation}
+which defines the luminosity distance. Intuitively, this is what happens if the emitted energy is isotropically distributed on a sphere of radius $\dl$ around the source. But this means that it should coincide with
+\begin{equation}
+    \label{eq:luminosity-distance-2}
+    \begin{split}
+        F &= \frac{\dd E_o}{\dd t_o} \frac{1}{4\pi a^2(t_o) r^2} \\
+        &= \frac{\dd E_s}{\dd t_s} \frac{1}{4\pi a^2(t_o) r^2 (1 + z)^2},
+    \end{split}
+\end{equation}
+where we used that the observed energy is the redshifted energy $E_o = E_s \cdot (1+z)^{-1}$. and that the area of a sphere at comoving $r$ is scaled by $a^2(t)$ from the FLRW metric. This means using \fullref{eq:luminosity-distance-1} and \fullref{eq:luminosity-distance-2} we can relate the luminosity distance to the redshift
+\begin{equation}
+    \label{eq:luminosity-distance-3}
+    \dl = (1 + z) a(t_0) r,
+\end{equation}
+where we set $t_o = t_0$ for present time. From the above equation we can recover the famous \emph{Hubble law} by Taylor expanding the luminosity distance as given in \fullref{eq:luminosity-distance-3} around $z=0$. The linear term then reads
+\begin{equation}
+    \boxed{\dl = \frac{c}{H_0} z,}
+\end{equation}
+where we introduced the Hubble parameter
+\begin{equation}
+    H(t) \definedas \frac{\dot{a}(t)}{a(t)},
+\end{equation}
+and the \emph{Hubble constant} $\hubble$
+\begin{equation}
+    \label{eq:hubble-constant}
+    \boxed{\hubble \definedas H(t_0),}
+\end{equation}
+that we are trying to constrain in this work. For completeness, we can already define the \emph{reduced Hubble constant} $\rhubble$
+\begin{equation}
+    \label{eq:reduced-hubble-constant}
+    \boxed{\rhubble \definedas \frac{\hubble}{100}\unitfrac{s \cdot Mpc}{km}.}
+\end{equation}
+In the flat case $k=0$ we can we can derive the \emph{luminosity distance-redshift relation}
+\begin{equation}
+    \label{eq:luminosity-distance-redshift-relation}
+    \boxed{\dl (z) = c (1+z) \int_0^z \frac{\dd z'}{H(z')}.}
+\end{equation}
+This equation is the key to measuring the Hubble constant $\hubble$, because if we are able to measure the luminosity distance $\dl$ and the redshift $z$ of a source, we can infer the Hubble constant $\hubble$ from \fullref{eq:luminosity-distance-redshift-relation}. The standard procedure for measuring the Hubble constant $\hubble$ with \fullref{eq:luminosity-distance-redshift-relation} is to measure the redshift $z$ for a source by looking at the spectral lines from electromagnetic signal from that source. As we have derived in \fullref{eq:redshift-time}, we see that the redshift $z$ is related to the time-dilation of the signal. This also corresponds to a redshift in frequencies if we take the Fourier transform of the time signal and hence a redshift in the spectral lines. On the other hand, we can measure the luminosity distance $\dl$ by directly measuring the flux $F$ that we observe from that source and for the intrinsic luminosity $L$ one can use so called \emph{standard candles} as a reference. A standard candle is a well know process (e.g. supernovae) that emits a known amount of energy in a known time interval.
+Considering gravitational wave events, we can measure $\dl$ from the observed GW signal and in the best case we can measure the redshift $z$ from a electromagnetic signal of the same event, referred to as the \emph{electromagnetic counterpart} of the GW event. In this case we can directly infer the Hubble constant $\hubble$ from \fullref{eq:luminosity-distance-redshift-relation}. However, in the present work we consider the case where we do not have what is called the electromagnetic counterpart, i.e. we can measure $\dl$ but do not have a measurement of the redshift $z$. These events are called \emph{dark sirens} and we will discuss how we can still infer the Hubble constant $\hubble$ from these events later. Let us first come back to \fullref{eq:luminosity-distance-redshift-relation} where we have the Hubble parameter $H(z)$ in the integral. To infer the Hubble constant $\hubble$ from this equation we need to know the functional form of $H(z)$. This is where the $\Lambda$CDM model comes into play.
 
 \section{\texorpdfstring{$\Lambda$CDM model}{ΛCDM model}}
+The $\Lambda$CDM model is the standard model of cosmology and describes the universe as a flat, homogeneous, and isotropic universe with a cosmological constant\footnote{The introduction of the cosmological constant is told to be a funny back and forth in history, as it was first introduced by Einstein when he tried to solve the Einstein equations but then discarded again because it let to an expanding universe in contrast to his believe that the universe is static, later being referred to as his \emph{biggest blunder}.} $\Lambda$ and cold dark matter (CDM). However, the term \emph{cosmological constant} is an additional term in the Einstein equations \fullref{eq:einstein-hilbert-action}, where we can add a term $\Lambda \metric$ on the left hand side, which still leaves the theory invariant. On this new set of equations the Friedmann-Lemaître equations are build on which introduce the energy density parameters that define different cosmological models.  Here we will just summarize the results of the $\Lambda$CDM model that we need to infer the Hubble constant $\hubble$. For the following we will closely follow \cite{10.1093/acprof:oso/9780198570745.001.0001}. In the end, what the Hubble parameter $H(z)$ depends on is the energy content of the universe. The energy content of the universe is described by the energy density parameters $\Omega_m, \Omega_\Lambda, \Omega_r, \Omega_k$, where $\Omega_m$ is the energy density of matter, $\Omega_\Lambda$ is the energy density of the cosmological constant or \emph{dark energy},  $\Omega_r$ is the energy density of radiation, and lastly $\Omega_k$ the density parameter regarding the curvature $k$. First the Hubble parameter $H(z)$ can be written as
+\begin{equation}
+    \label{eq:hubble-parameter}
+    H(z) = \hubble \sqrt{\Omega^m_0 (1+z)^3 + \Omega^\Lambda_0 + \Omega^r_0 (1+z)^4 + \Omega^k_0 (1+z)^2}.
+\end{equation}
+The flat $\Lambda$CDM model that we will use in this work is characterized by $\Omega^k_0 = 0$ and $\Omega^r_0 = 0$. As stated in \cite{10.1093/acprof:oso/9780198570745.001.0001} the current best fit values for the energy density parameters are $\Omega_o^m \approx 0.3$ and $\Omega^\Lambda_0 \approx 0.7$. Therefore the final $\dl$-$z$ relation in the flat $\Lambda$CDM model and which we will use reads
+\begin{equation}
+    \label{eq:luminosity-distance-redshift-relation-lcdm}
+    \boxed{\dl (z) = c (1+z) \int_0^z \frac{\dd z'}{\hubble \sqrt{\Omega^m_0 (1+z')^3 + \Omega^\Lambda_0}}.}
+\end{equation}
 
+\section{Simulation parameters}\label{sec:cosmology-simulation-parameters}
+For the simulation of the inference we are only interested in the inference of $\rhubble$ and will align the best fit value or the matter density parameter
+\begin{equation}
+    \label{eq:omega-matter-0}
+    \boxed{\Omega^m_0 = 1 - \Omega^\Lambda_0 = 0.25,}
+\end{equation}
+with \cite{10.1093/mnras/stab2741} and for $\rhubbletrue$ als in accordance
+\begin{equation}
+    \label{eq:rhubble-true}
+    \boxed{\rhubbletrue = 0.73.}
+\end{equation}
+
+
+
+\section{The hubble tension}
